@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MusicalStructure</string>
+    <string name="btn_list_by_artist">Sort playlist by artist</string>
+    <string name="btn_list_by_title">Title</string>
+    <string name="btn_list_by_rank">Rankű</string>
+    <string name="btn_list_by_genre">Genre</string>
+    <string name="btn_list_by_most_votes">most votes</string>
+    <string name="text_author">Author Sample</string>
+    <string name="text_title">Title of Track</string>
+    <string name="text_genre">Genre</string>
+    <string name="text_length">length</string>
+    <string name="text_votes">votes</string>
+    <string name="text_rank">Rank</string>
+</resources>

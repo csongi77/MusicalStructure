@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.csongor.musicalstructure.MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/welcome_image_height"
+        android:src="@drawable/lights_party_dancing_music"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/btn_list_by_artist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_list_by_artist"
+        />
+
+    <Button
+        android:id="@+id/btn_list_by_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_list_by_title"
+        />
+
+    <Button
+        android:id="@+id/btn_list_by_rank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_list_by_rank"
+        />
+
+    <Button
+        android:id="@+id/btn_list_by_genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_list_by_genre"
+        />
+
+    <Button
+        android:id="@+id/btn_list_by_vote_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_list_by_most_votes"
+        />
+
+</LinearLayout>
