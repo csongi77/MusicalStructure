@@ -11,4 +11,10 @@
     <string name="text_length">length</string>
     <string name="text_votes">votes</string>
     <string name="text_rank">Rank</string>
+    <string name="external_storage_unavailable">External storage is unavailable, aborting</string>
+    <string name="unexpected_error">Unexpected file read error occured, quitting</string>
+    <string name="dialog_permission_request_title">Need permission for reading music files</string>
+    <string name="dialog_permission_request_message">Application needs your permission for reading music files to continue</string>
+    <string name="dialog_positive_button">Grant permission</string>
+    <string name="dialog_negative_button">Exit</string>
 </resources>

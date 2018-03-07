@@ -5,7 +5,7 @@ package com.example.csongor.musicalstructure.musichelpers;
  * Enum for genres to reduce misspelling at track creation
  */
 
-enum Genre {
+public enum Genre {
     TECHNO,
     GOA,
     RAVE,

@@ -2,6 +2,7 @@ package com.example.csongor.musicalstructure;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -40,6 +41,10 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         }
         TextView mArtistTv=mRootView.findViewById(R.id.text_author);
         mArtistTv.setText(mTrack.getAuthor());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mArtistTv.setTextColor(getContext().getColor(R.color.colorPrimary));
+        }
 
         TextView mTitleTv=mRootView.findViewById(R.id.btn_list_by_title);
 
