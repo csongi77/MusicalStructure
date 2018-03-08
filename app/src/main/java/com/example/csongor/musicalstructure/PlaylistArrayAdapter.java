@@ -73,5 +73,9 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         return mRootView;
     }
 
-
+    @Nullable
+    @Override
+    public Track getItem(int position) {
+        return mTrackList.get(position);
+    }
 }
