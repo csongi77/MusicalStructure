@@ -72,4 +72,6 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         // return the rendered view
         return mRootView;
     }
+
+
 }

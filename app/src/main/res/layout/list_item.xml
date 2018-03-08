@@ -4,63 +4,96 @@
     android:id="@+id/list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/colorPrimaryDark">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/text_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingLeft="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             tools:text="@string/text_author" />
 
         <TextView
             android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="@string/text_title" />
+            android:textColor="@color/white"
+            android:paddingBottom="6dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="@string/text_title"
+            android:paddingLeft="18dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/text_genre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             tools:text="@string/text_genre" />
 
         <TextView
             android:id="@+id/text_length"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="6dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             tools:text="@string/text_length" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
+        android:layout_weight="0.3"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/text_votes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             tools:text="@string/text_votes" />
 
         <TextView
             android:id="@+id/text_rank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="6dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             tools:text="@string/text_rank" />
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_play_circle_outline_white_36dp"
+        android:padding="6dp"
+        android:layout_gravity="center"/>
 </LinearLayout>

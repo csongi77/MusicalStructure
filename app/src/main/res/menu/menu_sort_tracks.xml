@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     >
     <item
-        android:id="@+id/menu_artist"
-        android:title="@string/menu_artist"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/menu_track"
-        android:title="@string/menu_track"
-        app:showAsAction="always"/>
+        android:id="@+id/menu_select"
+        android:icon="@drawable/ic_filter_list_white_36dp"
+        android:title="@string/menu_title"
+        app:showAsAction="always"
+        >
+        <menu>
+            <item
+                android:id="@+id/menu_artist"
+                android:title="@string/btn_list_by_artist"/>
+            <item
+                android:id="@+id/menu_track"
+                android:title="@string/btn_list_by_title"/>
+            <item
+                android:id="@+id/menu_genre"
+                android:title="@string/btn_list_by_genre"/>
+            <item
+                android:id="@+id/menu_votes"
+                android:title="@string/btn_list_by_most_votes"/>
+            <item
+                android:id="@+id/menu_rank"
+                android:title="@string/btn_list_by_rank"/>
+        </menu>
+    </item>
 </menu>
