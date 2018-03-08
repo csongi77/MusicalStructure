@@ -16,8 +16,6 @@ public class Track {
     private String author="unknown";
     private long length=0L;
     private String title="unknown";
-    private double rank=0.0;
-    private int numberOfVotes=0;
 
     /**
      * private constructor
@@ -27,8 +25,6 @@ public class Track {
       author=builder.artist;
       length=builder.length;
       title=builder.title;
-      rank=builder.rank;
-      numberOfVotes=builder.votes;
     }
 
     /**
@@ -50,28 +46,7 @@ public class Track {
         return title;
     }
 
-    public double getRank() {
-        return rank;
-    }
 
-    public int getNumberOfVotes() {
-        return numberOfVotes;
-    }
-
-    /**
-     * @param rate user can rate the music from 1 to 5. (the higher the better)
-     *             The rank is based on average of votes.
-     *             Because it is a dummy track object, the average is calculated by "number of
-     *             votes" and the "base rank".
-     */
-    public void setRank(int rate) {
-        if(numberOfVotes>0) {
-            rank = (rank * numberOfVotes / (numberOfVotes + 1)) + (rate / (numberOfVotes + 1));
-        } else {
-            rank=(double)rate;
-        }
-        numberOfVotes++;
-    }
 
     /**
      *
@@ -91,11 +66,8 @@ public class Track {
         String title;
         Enum<Genre> genre;
         long length;
-        double rank;
-        int votes;
 
-        Track newTrack;
-        private static TrackBuilder trackBuilderInstance = new TrackBuilder();
+         private static TrackBuilder trackBuilderInstance = new TrackBuilder();
 
         public TrackBuilder getInstance(){
             return trackBuilderInstance;
@@ -121,20 +93,8 @@ public class Track {
             return trackBuilderInstance;
         }
 
-        public TrackBuilder setInitalRank(double rank){
-            this.rank=rank;
-            return trackBuilderInstance;
-        }
-
-        public TrackBuilder setInitalNumberOfVotes(int votes){
-            this.votes=votes;
-            return trackBuilderInstance;
-        }
 
         public Track build(){
-            if(this.votes==0){
-                this.rank=0.0;
-            }
             return new Track(this);
         }
     }
