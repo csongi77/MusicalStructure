@@ -8,5 +8,7 @@ import java.io.Serializable;
 
 public enum ListingOrder implements Serializable{
     ARTIST,
-    TRACK
+    TRACK,
+    RANK,
+    GENRE,
 }

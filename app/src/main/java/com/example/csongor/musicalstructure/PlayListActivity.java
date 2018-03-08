@@ -37,6 +37,8 @@ public class PlayListActivity extends AppCompatActivity {
 
                 });
                 break;
+            case GENRE:
+                mPlayList.sort((t1,t2)->{return t1.getGenre().toString().compareToIgnoreCase(t2.getGenre().toString());});
             default:
                 break;
         }

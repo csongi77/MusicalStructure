@@ -11,7 +11,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private static final String EXTRA_LIST_BY = "EXTRA_LIST_BY";
@@ -19,13 +18,14 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 42;
     private AlertDialog mAlertDialog;
     private Button mListByArtist;
+    private Button mListByGenre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Check whether external storage is available. If not, quit application
-        if (!Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)) {
+        if (!Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)&&Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)==null) {
             sayGoodbye(ReasonToQuit.NO_MEDIA);
         }
         // check permissions for accessing external storage. If not, request permission
@@ -47,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mListByArtist = findViewById(R.id.btn_list_by_artist);
-        mListByArtist.setOnClickListener(v -> listByArtist(ListingOrder.ARTIST));
+        mListByArtist.setOnClickListener(v -> openPlaylist(ListingOrder.ARTIST));
+        mListByGenre = findViewById(R.id.btn_list_by_genre);
+        mListByGenre.setOnClickListener(v-> openPlaylist(ListingOrder.GENRE));
     }
 
     /**
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param orderBy how to order tracks
      */
-    private void listByArtist(ListingOrder orderBy) {
+    private void openPlaylist(ListingOrder orderBy) {
         Intent intent = new Intent(MainActivity.this, PlayListActivity.class);
         intent.putExtra(EXTRA_LIST_BY, orderBy);
         startActivity(intent);
