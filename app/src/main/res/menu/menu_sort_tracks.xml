@@ -20,11 +20,8 @@
                 android:id="@+id/menu_genre"
                 android:title="@string/btn_list_by_genre"/>
             <item
-                android:id="@+id/menu_votes"
-                android:title="@string/btn_list_by_most_votes"/>
-            <item
-                android:id="@+id/menu_rank"
-                android:title="@string/btn_list_by_rank"/>
+                android:id="@+id/menu_length"
+                android:title="@string/menu_length"/>
         </menu>
     </item>
 </menu>

@@ -13,5 +13,6 @@ public enum ListingOrder implements Serializable{
     NUMBER_OF_VOTES,
     RANK,
     GENRE,
-    TITLE
+    TITLE,
+    LENGTH
 }

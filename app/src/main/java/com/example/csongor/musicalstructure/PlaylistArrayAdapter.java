@@ -60,12 +60,6 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         TextView mGenre=mRootView.findViewById(R.id.text_genre);
         mGenre.setText(mTrack.getGenre());
 
-        TextView mVotes=mRootView.findViewById(R.id.text_votes);
-        mVotes.setText(String.valueOf(mTrack.getNumberOfVotes()));
-
-        TextView mRank = mRootView.findViewById(R.id.text_rank);
-        mRank.setText(String.format("%1$.2f",mTrack.getRank()));
-
         TextView mLength = mRootView.findViewById(R.id.text_length);
         mLength.setText(mTrack.getLengthString());
 
