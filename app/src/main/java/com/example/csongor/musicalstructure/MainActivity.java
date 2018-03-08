@@ -13,19 +13,20 @@ import android.os.Bundle;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+    // set up constants
     private static final String EXTRA_LIST_BY = "EXTRA_LIST_BY";
     private static final String EXTRA_REASON_TO_QUIT = "REASON_TO_QUIT";
     private static final int PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 42;
+    // declare variables
     private AlertDialog mAlertDialog;
-    private Button mListByArtist;
-    private Button mListByGenre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Check whether external storage is available. If not, quit application
-        if (!Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)&&Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)==null) {
+        if (!Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)&&
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)!=null) {
             sayGoodbye(ReasonToQuit.NO_MEDIA);
         }
         // check permissions for accessing external storage. If not, request permission
@@ -46,10 +47,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mListByArtist = findViewById(R.id.btn_list_by_artist);
+        /**
+         * assigning listeners for buttons
+         */
+        Button mListByArtist = findViewById(R.id.btn_list_by_artist);
         mListByArtist.setOnClickListener(v -> openPlaylist(ListingOrder.ARTIST));
-        mListByGenre = findViewById(R.id.btn_list_by_genre);
+
+        Button mListByGenre = findViewById(R.id.btn_list_by_genre);
         mListByGenre.setOnClickListener(v-> openPlaylist(ListingOrder.GENRE));
+
+        Button mListByTitle = findViewById(R.id.btn_list_by_title);
+        mListByTitle.setOnClickListener(v-> openPlaylist(ListingOrder.TITLE));
+
+        Button mListByRank = findViewById(R.id.btn_list_by_rank);
+        mListByRank.setOnClickListener(v->openPlaylist(ListingOrder.RANK));
+
+        Button mListByVotes = findViewById(R.id.btn_list_by_vote_number);
+        mListByVotes.setOnClickListener(v->openPlaylist(ListingOrder.NUMBER_OF_VOTES));
     }
 
     /**

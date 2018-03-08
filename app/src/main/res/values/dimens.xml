@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Main Activity dimens -->
     <dimen name="welcome_image_height">200dp</dimen>
+    <dimen name="welcome_text_size">12sp</dimen>
+    <dimen name="welcome_text_padding">8dp</dimen>
+
+    <!-- List Item dimens -->
     <dimen name="list_item_height">64dp</dimen>
 </resources>

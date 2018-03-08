@@ -1,10 +1,11 @@
 <resources>
+    <!-- Main Activity's strings -->
     <string name="app_name">MusicalStructure</string>
-    <string name="btn_list_by_artist">Sort playlist by artist</string>
+    <string name="btn_list_by_artist">Artist</string>
     <string name="btn_list_by_title">Title</string>
-    <string name="btn_list_by_rank">Rankű</string>
+    <string name="btn_list_by_rank">Rank</string>
     <string name="btn_list_by_genre">Genre</string>
-    <string name="btn_list_by_most_votes">most votes</string>
+    <string name="btn_list_by_most_votes">Top votes</string>
     <string name="text_author">Author Sample</string>
     <string name="text_title">Title of Track</string>
     <string name="text_genre">Genre</string>
@@ -17,4 +18,8 @@
     <string name="dialog_permission_request_message">Application needs your permission for reading music files to continue</string>
     <string name="dialog_positive_button">Grant permission</string>
     <string name="dialog_negative_button">Exit</string>
+    <string name="welcome_text">Welcome to Csongi\'s Music Player! List tracks by:</string>
+    <string name="menu_artist">artist</string>
+    <string name="menu_track">track</string>
+    <string name="menu_title">Sort tracks by:</string>
 </resources>

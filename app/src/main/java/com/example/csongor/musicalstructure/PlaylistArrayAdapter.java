@@ -48,6 +48,9 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         if (mRootView==null) {
             mRootView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
         }
+        /**
+         *  find and set text for appropriate Track
+         */
         TextView mArtistTv=mRootView.findViewById(R.id.text_author);
         mArtistTv.setText(mTrack.getAuthor());
 
@@ -55,13 +58,18 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         mTitleTv.setText(mTrack.getTitle());
 
         TextView mGenre=mRootView.findViewById(R.id.text_genre);
-        mGenre.setText(mTrack.getGenre().toString().toLowerCase());
+        mGenre.setText(mTrack.getGenre());
 
         TextView mVotes=mRootView.findViewById(R.id.text_votes);
         mVotes.setText(String.valueOf(mTrack.getNumberOfVotes()));
 
         TextView mRank = mRootView.findViewById(R.id.text_rank);
         mRank.setText(String.format("%1$.2f",mTrack.getRank()));
+
+        TextView mLength = mRootView.findViewById(R.id.text_length);
+        mLength.setText(mTrack.getLengthString());
+
+        // return the rendered view
         return mRootView;
     }
 }

@@ -34,8 +34,8 @@ public class Track {
     /**
      * getters and setters
      */
-    public Enum<Genre> getGenre() {
-        return genre;
+    public String getGenre() {
+        return genre.toString();
     }
 
     public String getAuthor() {

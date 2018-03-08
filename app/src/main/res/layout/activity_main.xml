@@ -12,6 +12,10 @@
         android:src="@drawable/lights_party_dancing_music"
         android:scaleType="centerCrop"/>
 
+    <TextView
+        style="@style/style_txt_welcome"
+        android:text="@string/welcome_text"/>
+
     <Button
         android:id="@+id/btn_list_by_artist"
         android:layout_width="match_parent"
@@ -34,17 +38,17 @@
         />
 
     <Button
-        android:id="@+id/btn_list_by_genre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_list_by_genre"
-        />
-
-    <Button
         android:id="@+id/btn_list_by_vote_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_list_by_most_votes"
+        />
+
+    <Button
+        android:id="@+id/btn_list_by_genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_list_by_genre"
         />
 
 </LinearLayout>
