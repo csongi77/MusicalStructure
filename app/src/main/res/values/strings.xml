@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Main Activity's strings -->
     <string name="app_name">MusicalStructure</string>
     <string name="btn_list_by_artist">Artist</string>
@@ -23,4 +23,7 @@
     <string name="menu_track">track</string>
     <string name="menu_title">Sort tracks by:</string>
     <string name="menu_length">Length</string>
+    <!-- DummyMusicTrack's strings -->
+    <string name="playing_dummy_music_track">Playing <xliff:g id="title">%s</xliff:g></string>
+    <string name="playing_dummy_music_track_by_author">Playing <xliff:g id="author">%s</xliff:g>'s track</string>
 </resources>

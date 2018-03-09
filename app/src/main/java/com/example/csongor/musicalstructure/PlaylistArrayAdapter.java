@@ -45,6 +45,17 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Track mTrack=mTrackList.get(position);
         View mRootView = convertView;
+        /**
+         * converting trackLentgh time from millis to minutes:seconds.millis
+         */
+        long mTrackLength = mTrack.getLength();
+        String mLengthToDisplay = new StringBuilder("").
+                append(mTrackLength/60000).
+                append(": ").
+                append(mTrackLength%60000/1000).
+                append(".").
+                append(mTrackLength%1000).
+                toString();
         if (mRootView==null) {
             mRootView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
         }
@@ -61,7 +72,7 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         mGenre.setText(mTrack.getGenre());
 
         TextView mLength = mRootView.findViewById(R.id.text_length);
-        mLength.setText(mTrack.getLengthString());
+        mLength.setText(mLengthToDisplay);
 
         // return the rendered view
         return mRootView;
@@ -72,4 +83,5 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
     public Track getItem(int position) {
         return mTrackList.get(position);
     }
+
 }
