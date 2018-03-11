@@ -16,13 +16,23 @@
         app:popupTheme="@style/AlertDialog.AppCompat.Light">
 
     </android.support.v7.widget.Toolbar>
-
+    <LinearLayout
+        android:id="@+id/list_message_container"
+        style="@style/match_match">
+        <ImageView
+            android:id="@+id/loader_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleX=".3"
+            android:scaleY=".3"
+            android:src="@drawable/anarchy"
+            />
     <ListView
         android:id="@+id/list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.csongor.musicalstructure.PlayListActivity">
-
-
     </ListView>
+
+    </LinearLayout>
 </LinearLayout>
