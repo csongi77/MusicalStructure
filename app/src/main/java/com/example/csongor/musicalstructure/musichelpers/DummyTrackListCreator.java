@@ -1,45 +1,34 @@
 package com.example.csongor.musicalstructure.musichelpers;
 
-import android.content.Context;
-import android.content.Loader;
-import android.os.AsyncTask;
-import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by csongor on 3/5/18.
- * Helper class for generating Track list object asynchronously
+ * Created by csongor on 3/12/18.
+ * This class is responsible for creating dummy Track List
+ * Implementation of PlaylistCreationStrategy
  */
 
-public class DummyMusicTrackLoader extends AsyncTaskLoader<List<Track>> {
-    private static final String LOG_TAG=DummyMusicTrackLoader.class.getSimpleName();
+class DummyTrackListCreator implements PlaylistCreationStrategy {
+    // declaring genre constants in order to avoid misspelling
     private static final String TECHNO = "Techno";
     private static final String GOA = "Goa";
     private static final String RAVE = "Rave";
-    private List<Track> mTrackList;
 
-    public DummyMusicTrackLoader(Context context) {
-        super(context);
+    /**
+     * Default constructor.
+     * Since this class can be instantiated by a Factory of the package, it remains package private
+     */
+    DummyTrackListCreator() {
     }
 
     @Override
-    protected void onStartLoading() {
-        Log.e(LOG_TAG,"onStartLoading called");
-        forceLoad();
-    }
+    public List<Track> getPlaylist() {
 
-    @Override
-    public List<Track> loadInBackground() {
-
-
-        //public List<Track> getTrackList(){
         /**
-         * Building Track list. The MusicTrack structure is wrapped by DummyMusicTrack
+         * Building dummy Track list. The MusicTrack structure is wrapped by DummyMusicTrack
          */
-        mTrackList = new ArrayList<>();
+        List<Track> mTrackList = new ArrayList<>();
 
         mTrackList.add(new DummyMusicTrack(new MusicTrack("Westbam", "Beatbox Rocker", 4 * 60 * 1000L + 11 * 1000L, TECHNO)));
         mTrackList.add(new DummyMusicTrack(new MusicTrack("Westbam", "10 in 01", 3 * 60 * 1000L + 37 * 1000L, TECHNO)));
@@ -54,20 +43,15 @@ public class DummyMusicTrackLoader extends AsyncTaskLoader<List<Track>> {
         mTrackList.add(new DummyMusicTrack(new MusicTrack("Chemical Brothers", "Under The Influence", 4 * 60 * 1000L + 15 * 1000L, TECHNO)));
         mTrackList.add(new DummyMusicTrack(new MusicTrack("Dj Misjah & Dj Tim", "Access", 7 * 60 * 1000L + 15 * 1000L, TECHNO)));
         mTrackList.add(new DummyMusicTrack(new MusicTrack("Astral Projection", "Kabbalah", 9 * 60 * 1000L + 29 * 1000L, GOA)));
+
         /**
          * Add some time for returning the list to simulate latency
          */
         try {
-            Thread.sleep(3*1000L);
+            Thread.sleep(3 * 1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return mTrackList;
-
     }
-
 }
-
-
-
-

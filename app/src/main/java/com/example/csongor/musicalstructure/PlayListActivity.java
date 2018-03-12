@@ -1,11 +1,8 @@
 package com.example.csongor.musicalstructure;
 
-import android.app.LoaderManager;
-import android.content.Loader;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -13,13 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.List;
 
-import com.example.csongor.musicalstructure.musichelpers.DummyMusicTrackLoader;
+import com.example.csongor.musicalstructure.musichelpers.NullTrack;
+import com.example.csongor.musicalstructure.musichelpers.PlaylistStrategies;
+import com.example.csongor.musicalstructure.musichelpers.TrackPlaylistFactory;
 import com.example.csongor.musicalstructure.musichelpers.Playable;
 import com.example.csongor.musicalstructure.musichelpers.Track;
 
@@ -123,7 +121,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
         android.support.v4.content.Loader mLoaderToReturn=mLoader;
         if (mLoader == null) {
             Log.e(LOG_TAG,"onCreateLoader, loader==null, loader created");
-             mLoaderToReturn = new DummyMusicTrackLoader(this);
+             mLoaderToReturn = new TrackPlaylistFactory(this, PlaylistStrategies.DUMMY_PLAYLIST);
         }
         return mLoaderToReturn;
     }
@@ -131,7 +129,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<List<Track>> loader, List<Track> data) {
         mPlayList = data;
-        if (mPlayList != null && mPlayList.size() > 0) {
+        if (!(mPlayList.get(0) instanceof NullTrack)) {
             mLoaderImage.setVisibility(View.GONE);
             if (mAdapter == null) {
                 mAdapter = new PlaylistArrayAdapter(this, mPlayList);
