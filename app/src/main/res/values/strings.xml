@@ -14,9 +14,30 @@
     <string name="dialog_negative_button">Exit</string>
     <string name="menu_title">Sort tracks by:</string>
     <string name="menu_length">Length</string>
+
+
     <!-- DummyMusicTrack's strings -->
     <string name="playing_dummy_music_track">Playing <xliff:g id="title">%s</xliff:g></string>
     <string name="playing_dummy_music_track_by_author">Playing <xliff:g id="author">%s</xliff:g>'s track</string>
     <string name="txt_dummy_list">Use Dummy Tracks</string>
     <string name="txt_mp3_tracks">Use Tracks From Storage</string>
+
+    <!-- Error Activity strings -->
+    <!-- Error Title, max 35 characters!! -->
+    <string name="txt_error_title">Error Title example</string>
+    <string name="txt_error_title_no_media">No media mounted</string>
+    <string name="txt_error_title_no_permission_granted">Read storage permission denied</string>
+    <string name="txt_error_title_no_files_found">No files found</string>
+
+    <!-- Error Description -->
+    <string name="txt_error_description">Error text description</string>
+    <string name="txt_error_description_no_media">Searching shared Music directory was unsuccessful.
+        Check your system settings!</string>
+    <string name="txt_error_description_no_permission_granted">In order to play music from files,
+        the application needs your permission for reading access to your files</string>
+    <string name="txt_error_description_no_files_found">Your Music folder is empty.
+        Copy some mp3 files into it in order to play them!</string>
+
+    <!-- Error Button -->
+    <string name="btn_error_right">Got it</string>
 </resources>

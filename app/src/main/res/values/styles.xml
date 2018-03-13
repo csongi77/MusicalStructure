@@ -31,7 +31,6 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-
     <!-- layout card-container style -->
     <style name="style_activity_main_card_layout" parent="match_wrap">
         <item name="android:background">@color/light_gray</item>
@@ -53,7 +52,7 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <!-- image style -->
+    <!-- activity main, activity error image style -->
     <style name="style_activity_main_image">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/welcome_image_height</item>
@@ -64,7 +63,7 @@
     <style name="style_activity_main_image_crop" parent="style_activity_main_image">
         <item name="android:scaleType">centerCrop</item>
     </style>
-    <!-- text style -->
+    <!-- activity main text style -->
     <style name="style_activity_main_text" parent="wrap_wrap">
         <item name="android:layout_gravity">end</item>
         <item name="android:fontFamily">@font/roboto_bold</item>
@@ -72,6 +71,41 @@
         <item name="android:textColor">@color/text_selector</item>
         <item name="android:padding">@dimen/welcome_text_padding</item>
         <item name="android:layout_marginBottom">@dimen/welcome_text_padding</item>
+    </style>
+
+
+    <!-- activity error styles -->
+    <!-- error title style -->
+    <style name="error_title" parent="Base.TextAppearance.AppCompat.Headline">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_below">@+id/img_error</item>
+        <item name="android:padding">@dimen/welcome_text_padding</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- error description style -->
+    <style name="error_description" parent="Base.TextAppearance.AppCompat.Medium">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_below">@+id/txt_error_title</item>
+        <item name="android:padding">@dimen/welcome_text_padding</item>
+    </style>
+
+    <!-- button style -->
+    <style name="btn_error" parent="style_activity_main_text">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+    <!-- button container -->
+    <style name="btn_error_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:gravity">right</item>
+        <item name="android:paddingRight">@dimen/welcome_text_padding</item>
+        <item name="android:paddingTop">@dimen/welcome_text_padding</item>
     </style>
 
 </resources>

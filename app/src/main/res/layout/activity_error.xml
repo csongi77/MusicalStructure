@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/match_match"
+    tools:context="com.example.csongor.musicalstructure.ErrorActivity">
+    <!-- image from material.io -->
+    <ImageView
+        android:id="@+id/img_error"
+        style="@style/style_activity_main_image"
+        android:src="@drawable/ic_error_outline_white_48dp" />
+
+    <TextView
+        android:id="@+id/txt_error_title"
+        style="@style/error_title"
+        tools:text="@string/txt_error_title" />
+
+    <TextView
+        android:id="@+id/txt_error_description"
+        style="@style/error_description"
+        tools:text="@string/txt_error_description" />
+
+    <LinearLayout
+        style="@style/btn_error_container">
+        <TextView
+            style="@style/btn_error"
+            tools:text="@string/btn_error_right" />
+    </LinearLayout>
+</RelativeLayout>
