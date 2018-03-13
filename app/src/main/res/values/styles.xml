@@ -96,6 +96,7 @@
     <style name="btn_error" parent="style_activity_main_text">
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
+
     </style>
     <!-- button container -->
     <style name="btn_error_container">

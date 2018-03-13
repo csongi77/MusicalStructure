@@ -4,20 +4,45 @@ import android.content.Intent;
 import android.icu.text.IDNA;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 public class ErrorActivity extends AppCompatActivity {
 
+    // declaring constants
     private static final String EXTRA_ERROR = "EXTRA_ERROR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_error);
+
+        // Assigning values to local variables
+        TextView mErrorTitle = findViewById(R.id.txt_error_title);
+        TextView mErrorDescription = findViewById(R.id.txt_error_description);
+        TextView mButtonOk = findViewById(R.id.btn_error_right);
+
+        // Setting up clickListener for mButtonOk. Pressing it, client will go back in MainActivity
+        mButtonOk.setOnClickListener((View v) ->{Intent intent=new Intent(ErrorActivity.this,MainActivity.class);
+        startActivity(intent);});
+
+        // Getting error reason from Intent
         Intent intent=getIntent();
         ErrorMessage mErrorMessage=(ErrorMessage)intent.getSerializableExtra(EXTRA_ERROR);
+
+        // Displaying error message based on Intent error message
         switch (mErrorMessage){
             case NO_MEDIA:
-
+                mErrorTitle.setText(R.string.txt_error_title_no_media);
+                mErrorDescription.setText(R.string.txt_error_description_no_media);
+                return;
+            case NO_FILE:
+                mErrorTitle.setText(R.string.txt_error_title_no_files_found);
+                mErrorDescription.setText(R.string.txt_error_description_no_files_found);
+                return;
+            default:
+                mErrorTitle.setText(R.string.txt_error_title_no_permission_granted);
+                mErrorDescription.setText(R.string.txt_error_description_no_permission_granted);
         }
     }
 }

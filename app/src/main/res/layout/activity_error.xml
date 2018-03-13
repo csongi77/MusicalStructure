@@ -23,7 +23,9 @@
     <LinearLayout
         style="@style/btn_error_container">
         <TextView
+            android:id="@+id/btn_error_right"
             style="@style/btn_error"
-            tools:text="@string/btn_error_right" />
+            tools:text="@string/btn_error_right"
+            android:text="@string/btn_error_right"/>
     </LinearLayout>
 </RelativeLayout>
