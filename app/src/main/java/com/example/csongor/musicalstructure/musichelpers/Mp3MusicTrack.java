@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-
-import java.io.File;
-
 /**
  * Created by csongor on 3/13/18.
  * This class wraps the basic Track class with Mp3 behaviour.
@@ -34,9 +31,10 @@ public class Mp3MusicTrack extends AbstractTrackWrapper implements Playable {
      */
     @Override
     public void play(Context context) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        File file=new File(String.valueOf(mUri));
-        intent.setDataAndType(mUri,"audio/*");
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("audio/mp3");
+        intent.putExtra(Intent.EXTRA_STREAM,mUri);
         context.startActivity(intent);
     }
 }
