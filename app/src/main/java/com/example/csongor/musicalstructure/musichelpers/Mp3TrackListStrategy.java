@@ -11,8 +11,10 @@ import java.util.List;
  * Implementation of PlaylistCreationStrategy
  */
 
-class Mp3TrackListCreator implements PlaylistCreationStrategy {
-    Mp3TrackListCreator(Context context) {
+class Mp3TrackListStrategy implements PlaylistCreationStrategy {
+
+
+    Mp3TrackListStrategy(Context context) {
     }
 
     @Override

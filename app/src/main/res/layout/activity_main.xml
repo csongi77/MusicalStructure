@@ -1,54 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:orientation="vertical"
     tools:context="com.example.csongor.musicalstructure.MainActivity">
+<!-- scroll view container -->
+    <LinearLayout style="@style/style_activity_main_layout">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/welcome_image_height"
-        android:src="@drawable/lights_party_dancing_music"
-        android:scaleType="centerCrop"/>
+        <!-- first card layout -->
+        <LinearLayout
+            android:id="@+id/btn_dummy_track"
+            style="@style/style_activity_main_card_layout">
 
-    <TextView
-        style="@style/style_txt_welcome"
-        android:text="@string/welcome_text"/>
+            <ImageView
+                style="@style/style_activity_main_image"
+                android:src="@drawable/ic_queue_music_white_48dp" />
 
-    <Button
-        android:id="@+id/btn_list_by_artist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_list_by_artist"
-        />
+            <TextView
+                style="@style/style_activity_main_text"
+                android:text="@string/txt_dummy_list" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_list_by_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_list_by_title"
-        />
+        <!-- second card layout -->
+        <LinearLayout
+            android:id="@+id/btn_mp3_track"
+            style="@style/style_activity_main_card_layout">
 
-    <Button
-        android:id="@+id/btn_list_by_rank"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_list_by_rank"
-        />
+            <!-- image from CC0 -> https://www.pexels.com/photo/lights-party-dancing-music-2143/  -->
+            <ImageView
+                style="@style/style_activity_main_image_crop"
+                android:src="@drawable/lights_party_dancing_music" />
 
-    <Button
-        android:id="@+id/btn_list_by_vote_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_list_by_most_votes"
-        />
+            <TextView
+                style="@style/style_activity_main_text"
+                android:text="@string/txt_mp3_tracks" />
+        </LinearLayout>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_list_by_genre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_list_by_genre"
-        />
-
-</LinearLayout>
+</ScrollView>

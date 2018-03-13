@@ -3,7 +3,7 @@ package com.example.csongor.musicalstructure;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class GoodbyeActivity extends AppCompatActivity {
+public class ErrorActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

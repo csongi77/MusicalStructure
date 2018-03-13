@@ -3,27 +3,20 @@
     <string name="app_name">MusicalStructure</string>
     <string name="btn_list_by_artist">Artist</string>
     <string name="btn_list_by_title">Title</string>
-    <string name="btn_list_by_rank">Rank</string>
     <string name="btn_list_by_genre">Genre</string>
-    <string name="btn_list_by_most_votes">Top votes</string>
     <string name="text_author">Author Sample</string>
     <string name="text_title">Title of Track</string>
     <string name="text_genre">Genre</string>
     <string name="text_length">length</string>
-    <string name="text_votes">votes</string>
-    <string name="text_rank">Rank</string>
-    <string name="external_storage_unavailable">External storage is unavailable, aborting</string>
-    <string name="unexpected_error">Unexpected file read error occured, quitting</string>
     <string name="dialog_permission_request_title">Need permission for reading music files</string>
     <string name="dialog_permission_request_message">Application needs your permission for reading music files to continue</string>
     <string name="dialog_positive_button">Grant permission</string>
     <string name="dialog_negative_button">Exit</string>
-    <string name="welcome_text">Welcome to Csongi\'s Music Player! List tracks by:</string>
-    <string name="menu_artist">artist</string>
-    <string name="menu_track">track</string>
     <string name="menu_title">Sort tracks by:</string>
     <string name="menu_length">Length</string>
     <!-- DummyMusicTrack's strings -->
     <string name="playing_dummy_music_track">Playing <xliff:g id="title">%s</xliff:g></string>
     <string name="playing_dummy_music_track_by_author">Playing <xliff:g id="author">%s</xliff:g>'s track</string>
+    <string name="txt_dummy_list">Use Dummy Tracks</string>
+    <string name="txt_mp3_tracks">Use Tracks From Storage</string>
 </resources>

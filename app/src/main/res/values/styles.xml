@@ -9,21 +9,69 @@
     </style>
 
     <!-- root styles -->
-    <style name="match_wrap">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
 
     <style name="match_match">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <!-- Welcome text style -->
-    <style name="style_txt_welcome" parent="Base.TextAppearance.AppCompat.SearchResult.Title">
-        <item name="android:fontFamily">bold</item>
+    <style name="match_wrap">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/welcome_text_padding</item>
     </style>
+
+    <style name="wrap_wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- activity_main screen styles -->
+    <!-- layout style -->
+    <style name="style_activity_main_layout" parent="match_wrap">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+
+    <!-- layout card-container style -->
+    <style name="style_activity_main_card_layout" parent="match_wrap">
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:layout_margin">@dimen/welcome_text_padding</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- layout card-container style - landscape -->
+    <style name="style_activity_main_card_layout_landscape">
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:layout_width">@dimen/o_dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">@dimen/welcome_text_padding</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- image style -->
+    <style name="style_activity_main_image">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/welcome_image_height</item>
+        <item name="android:layout_margin">@dimen/welcome_text_padding</item>
+        <item name="android:background">@color/dark_grey</item>
+    </style>
+
+    <style name="style_activity_main_image_crop" parent="style_activity_main_image">
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+    <!-- text style -->
+    <style name="style_activity_main_text" parent="wrap_wrap">
+        <item name="android:layout_gravity">end</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/text_selector</item>
+        <item name="android:padding">@dimen/welcome_text_padding</item>
+        <item name="android:layout_marginBottom">@dimen/welcome_text_padding</item>
+    </style>
+
 </resources>

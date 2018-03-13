@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/match_match"
-    android:orientation="vertical">
+    style="@style/style_activity_main_layout">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_list_options"

@@ -10,75 +10,75 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.LinearLayout;
+
+import com.example.csongor.musicalstructure.musichelpers.PlaylistStrategies;
 
 public class MainActivity extends AppCompatActivity {
     // set up constants
-    private static final String EXTRA_LIST_BY = "EXTRA_LIST_BY";
-    private static final String EXTRA_REASON_TO_QUIT = "REASON_TO_QUIT";
+    private static final String EXTRA_PLAYLIST_CREATION_STRATEGY = "EXTRA_PLAYLIST_CREATION_STRATEGY";
+    private static final String EXTRA_ERROR = "EXTRA_ERROR";
     private static final int PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 42;
     // declare variables
     private AlertDialog mAlertDialog;
+    private LinearLayout mDummyButton;
+    private LinearLayout mMp3Button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Check whether external storage is available. If not, quit application
-        if (!Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)&&
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)!=null) {
-            sayGoodbye(ReasonToQuit.NO_MEDIA);
-        }
-        // check permissions for accessing external storage. If not, request permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // show dialog box why we need permission
-                showReasonDialog();
-            } else {
-                // go and request permission
-                goRequestPermission();
-            }
-            onStart();
-        } else {
-            onStart();
-        }
+        // Assigning values to variables
+        mDummyButton = findViewById(R.id.btn_dummy_track);
+        mMp3Button = findViewById(R.id.btn_mp3_track);
+
+        // Assigning listeners to buttons
+        mDummyButton.setOnClickListener(v->openPlaylist(PlaylistStrategies.DUMMY_PLAYLIST));
+        mMp3Button.setOnClickListener(v->performCheck());
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        /**
-         * assigning listeners for buttons
-         */
-        Button mListByArtist = findViewById(R.id.btn_list_by_artist);
-        mListByArtist.setOnClickListener(v -> openPlaylist(ListingOrder.ARTIST));
-
-        Button mListByGenre = findViewById(R.id.btn_list_by_genre);
-        mListByGenre.setOnClickListener(v-> openPlaylist(ListingOrder.GENRE));
-
-        Button mListByTitle = findViewById(R.id.btn_list_by_title);
-        mListByTitle.setOnClickListener(v-> openPlaylist(ListingOrder.TITLE));
-
-        Button mListByRank = findViewById(R.id.btn_list_by_rank);
-        mListByRank.setOnClickListener(v->openPlaylist(ListingOrder.RANK));
-
-        Button mListByVotes = findViewById(R.id.btn_list_by_vote_number);
-        mListByVotes.setOnClickListener(v->openPlaylist(ListingOrder.NUMBER_OF_VOTES));
-    }
 
     /**
-     * got request persmission result for PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
+     * Got request persmission result for PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
+     * If permission is granted, go and load Mp3 playlist
+     * If permission denied, open Error Activity to show detailed description why we need permission.
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_READ_EXTERNAL_STORAGE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // we've got permission for reading external storage, go on with process
-            onStart();
+            openPlaylist(PlaylistStrategies.MP3_PLAYLIST_FROM_FILE);
         } else {
-            // permission denied, say goodbye
-            sayGoodbye(ReasonToQuit.NO_PERMISSION);
+            // permission denied, open Error Activity
+            openErrorActivity(ErrorMessage.NO_PERMISSION);
         }
 
+    }
+
+    /**
+     * Checking storage availability and persmissions for reading Music directory
+     */
+    private void performCheck() {
+        // Check whether external storage is available. If not, open Error Activity
+        if (!Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)&&
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)!=null) {
+            openErrorActivity(ErrorMessage.NO_MEDIA);
+        }
+        // check permissions for accessing external storage. If not, request permission
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // show why we need permission
+                showReasonDialog();
+                super.onStart();
+            } else {
+                // go and request permission
+                goRequestPermission();
+            }
+        } else {
+            openPlaylist(PlaylistStrategies.MP3_PLAYLIST_FROM_FILE);
+        }
+        super.onStart();
     }
 
     /**
@@ -103,29 +103,29 @@ public class MainActivity extends AppCompatActivity {
                 // on negative answer stop application
                 .setNegativeButton(R.string.dialog_negative_button, (v, i) -> {
                     mAlertDialog.hide();
-                    sayGoodbye(ReasonToQuit.NO_PERMISSION);
+                    openErrorActivity(ErrorMessage.NO_PERMISSION);
                 })
                 .create();
         mAlertDialog.show();
     }
 
     /**
-     * calling playlistActivity
+     * Calling playlistActivity via Intent
      *
-     * @param orderBy how to order tracks
+     * @param strategy how to create tracklist
      */
-    private void openPlaylist(ListingOrder orderBy) {
+    private void openPlaylist(PlaylistStrategies strategy) {
         Intent intent = new Intent(MainActivity.this, PlayListActivity.class);
-        intent.putExtra(EXTRA_LIST_BY, orderBy);
+        intent.putExtra(EXTRA_PLAYLIST_CREATION_STRATEGY, strategy);
         startActivity(intent);
     }
 
     /**
-     * calling goodbye intent
+     * calling Error Activity via Intent
      */
-    private void sayGoodbye(ReasonToQuit reason) {
-        Intent intent = new Intent(MainActivity.this, GoodbyeActivity.class);
-        intent.putExtra(EXTRA_REASON_TO_QUIT, reason);
+    private void openErrorActivity(ErrorMessage reason) {
+        Intent intent = new Intent(MainActivity.this, ErrorActivity.class);
+        intent.putExtra(EXTRA_ERROR, reason);
         startActivity(intent);
     }
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/match_match">
+    <LinearLayout
+        style="@style/style_activity_main_layout">
+
+        <LinearLayout
+            style="@style/match_wrap">
+            <!-- first card layout -->
+            <LinearLayout
+                android:id="@+id/btn_dummy_track"
+                style="@style/style_activity_main_card_layout_landscape">
+
+                <ImageView
+                    style="@style/style_activity_main_image"
+                    android:src="@drawable/ic_queue_music_white_48dp" />
+
+                <TextView
+                    style="@style/style_activity_main_text"
+                    android:text="@string/txt_dummy_list" />
+            </LinearLayout>
+
+            <!-- second card layout -->
+            <LinearLayout
+                android:id="@+id/btn_mp3_track"
+                style="@style/style_activity_main_card_layout_landscape">
+
+                <!-- image from CC0 -> https://www.pexels.com/photo/lights-party-dancing-music-2143/  -->
+                <ImageView
+                    style="@style/style_activity_main_image_crop"
+                    android:src="@drawable/lights_party_dancing_music" />
+
+                <TextView
+                    style="@style/style_activity_main_text"
+                    android:text="@string/txt_mp3_tracks" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

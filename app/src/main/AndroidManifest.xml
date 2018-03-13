@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlayListActivity" />
-        <activity android:name=".GoodbyeActivity"></activity>
+        <activity android:name=".ErrorActivity"></activity>
     </application>
 
 </manifest>

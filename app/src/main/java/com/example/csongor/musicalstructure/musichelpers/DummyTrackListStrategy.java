@@ -9,7 +9,7 @@ import java.util.List;
  * Implementation of PlaylistCreationStrategy
  */
 
-class DummyTrackListCreator implements PlaylistCreationStrategy {
+class DummyTrackListStrategy implements PlaylistCreationStrategy {
     // declaring genre constants in order to avoid misspelling
     private static final String TECHNO = "Techno";
     private static final String GOA = "Goa";
@@ -19,7 +19,7 @@ class DummyTrackListCreator implements PlaylistCreationStrategy {
      * Default constructor.
      * Since this class can be instantiated by a Factory of the package, it remains package private
      */
-    DummyTrackListCreator() {
+    DummyTrackListStrategy() {
     }
 
     @Override

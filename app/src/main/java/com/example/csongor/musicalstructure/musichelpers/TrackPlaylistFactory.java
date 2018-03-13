@@ -2,9 +2,7 @@ package com.example.csongor.musicalstructure.musichelpers;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,26 +13,23 @@ import java.util.List;
  */
 
 public class TrackPlaylistFactory extends AsyncTaskLoader<List<Track>> {
-    private static final String LOG_TAG = TrackPlaylistFactory.class.getSimpleName();
 
     private PlaylistCreationStrategy mPlaylistStrategy;
-    private List<Track> mTrackList;
 
     public TrackPlaylistFactory(Context context, PlaylistStrategies playlistStrategy) {
         super(context);
         switch (playlistStrategy) {
             case DUMMY_PLAYLIST:
-                mPlaylistStrategy = new DummyTrackListCreator();
+                mPlaylistStrategy = new DummyTrackListStrategy();
                 return;
             default:
-                mPlaylistStrategy = new Mp3TrackListCreator(getContext());
+                mPlaylistStrategy = new Mp3TrackListStrategy(getContext());
                 return;
         }
     }
 
     @Override
     protected void onStartLoading() {
-        Log.e(LOG_TAG, "onStartLoading called");
         forceLoad();
     }
 
