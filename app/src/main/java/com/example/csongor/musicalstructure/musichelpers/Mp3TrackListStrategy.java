@@ -13,6 +13,7 @@ import java.util.List;
 
 class Mp3TrackListStrategy implements PlaylistCreationStrategy {
 
+    private Context mContext;
 
     Mp3TrackListStrategy(Context context) {
     }
