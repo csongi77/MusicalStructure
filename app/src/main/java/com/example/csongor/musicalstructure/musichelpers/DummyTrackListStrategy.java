@@ -26,7 +26,7 @@ class DummyTrackListStrategy implements PlaylistCreationStrategy {
     public List<Track> getPlaylist() {
 
         /**
-         * Building dummy Track list. The MusicTrack structure is wrapped by DummyMusicTrack
+         * Building dummy Track list. The MusicTrack structure is wrapped in DummyMusicTrack
          */
         List<Track> mTrackList = new ArrayList<>();
 
@@ -48,7 +48,7 @@ class DummyTrackListStrategy implements PlaylistCreationStrategy {
          * Add some time for returning the list to simulate latency
          */
         try {
-            Thread.sleep(3 * 1000L);
+            Thread.sleep(4 * 1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
