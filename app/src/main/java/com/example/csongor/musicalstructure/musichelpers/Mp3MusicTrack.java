@@ -3,6 +3,7 @@ package com.example.csongor.musicalstructure.musichelpers;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.MediaStore;
 
 /**
  * Created by csongor on 3/13/18.
@@ -32,9 +33,13 @@ public class Mp3MusicTrack extends AbstractTrackWrapper implements Playable {
     @Override
     public void play(Context context) {
 
-        Intent intent = new Intent(Intent.ACTION_SEND);
+       /* Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("audio/mp3");
         intent.putExtra(Intent.EXTRA_STREAM,mUri);
+        context.startActivity(intent);*/
+
+        Intent intent = new Intent(Intent.CATEGORY_APP_MUSIC);
+        intent.setDataAndType(mUri,"audio/*");
         context.startActivity(intent);
     }
 }
