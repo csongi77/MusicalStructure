@@ -1,9 +1,11 @@
 package com.example.csongor.musicalstructure.musichelpers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 
 import com.example.csongor.musicalstructure.R;
 
@@ -31,7 +33,7 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
     @Override
     public List<Track> getPlaylist() {
         List<Track> trackList;
-        File musicDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+        File musicDirectory = Environment.getExternalStorageDirectory();
         trackList = processFile(musicDirectory);
         if (trackList.isEmpty()) {
             trackList.add(new NullTrack());
@@ -76,7 +78,9 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
         if (genre == null || genre.startsWith("(") || genre.equalsIgnoreCase("") || Character.isDigit(genre.charAt(0)))
             genre = mContext.getString(R.string.mp3_title_unknown);
         long length = Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
-        Uri uri = Uri.parse(toProcess.getPath());
+        //Uri uri = Uri.parse(toProcess.getPath());
+        Uri uri= FileProvider.getUriForFile(mContext,"com.example.csongor.musicalstructure.fileprovider",toProcess);
+        mContext.grantUriPermission("*",uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
         return new Mp3MusicTrack(new MusicTrack(artist, title, length, genre), uri);
     }
 
