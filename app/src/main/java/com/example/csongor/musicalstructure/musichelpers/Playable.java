@@ -1,5 +1,6 @@
 package com.example.csongor.musicalstructure.musichelpers;
 
+import android.app.Activity;
 import android.content.Context;
 
 /**

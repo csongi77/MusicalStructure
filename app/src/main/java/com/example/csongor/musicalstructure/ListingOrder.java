@@ -10,9 +10,8 @@ import java.io.Serializable;
 
 public enum ListingOrder implements Serializable{
     ARTIST,
-    NUMBER_OF_VOTES,
-    RANK,
     GENRE,
     TITLE,
-    LENGTH
+    LENGTH,
+    DEFAULT
 }

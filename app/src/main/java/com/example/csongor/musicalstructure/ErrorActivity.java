@@ -44,6 +44,10 @@ public class ErrorActivity extends AppCompatActivity {
                 mErrorTitle.setText(R.string.txt_error_title_no_files_found);
                 mErrorDescription.setText(R.string.txt_error_description_no_files_found);
                 return;
+            case MP3_FILE_QUERY_ERROR:
+                mErrorTitle.setText(R.string.txt_error_title_query_failed);
+                mErrorDescription.setText(R.string.txt_error_description_query_failed);
+                return;
             default:
                 mErrorTitle.setText(R.string.txt_error_title_no_permission_granted);
                 mErrorDescription.setText(R.string.txt_error_description_no_permission_granted);

@@ -2,7 +2,8 @@ package com.example.csongor.musicalstructure.musichelpers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+
+import com.example.csongor.musicalstructure.PlayerActivity;
 
 /**
  * Created by csongor on 3/13/18.
@@ -12,17 +13,18 @@ import android.net.Uri;
 
 public class Mp3MusicTrack extends AbstractTrackWrapper implements Playable {
 
-    private Uri mUri;
+    private long mId;
+    private static final String EXTRA_ID="EXTRA_ID";
 
     /**
      * @param track the wrapped Track which will have extended behaviours and/or properties
-     * @param uri the URI of instantiated Track
+     * @param id the ID of instantiated Track
      *            Since Tracks can be instantiated by Factories in this package,
      *            constructor's scope is package private
      */
-    Mp3MusicTrack(Track track, Uri uri) {
+    Mp3MusicTrack(Track track, long id) {
         super(track);
-        mUri = uri;
+        mId = id;
     }
 
     /**
@@ -32,15 +34,10 @@ public class Mp3MusicTrack extends AbstractTrackWrapper implements Playable {
     @Override
     public void play(Context context) {
 
-       /* Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("audio/mp3");
-        intent.putExtra(Intent.EXTRA_STREAM,mUri);
-        context.startActivity(intent);*/
 
-       /* Intent intent = new Intent(Intent.CATEGORY_APP_MUSIC);
-        intent.setDataAndType(mUri,"audio/*");
-        context.startActivity(intent);*/
-
+    Intent intent = new Intent(context, PlayerActivity.class);
+    intent.putExtra(EXTRA_ID, mId);
+    context.startActivity(intent);
 
     }
 }

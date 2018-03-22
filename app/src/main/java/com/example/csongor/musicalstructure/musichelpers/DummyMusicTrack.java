@@ -38,4 +38,7 @@ public class DummyMusicTrack extends AbstractTrackWrapper implements Playable {
             Toast.makeText(context, String.format(toDisplay,mDisplayParam), Toast.LENGTH_LONG).show();
         }
     }
+
+
+
 }

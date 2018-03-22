@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -56,6 +57,9 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
                 append(".").
                 append(mTrackLength%1000).
                 toString();
+        /**
+         * Inflating view if it's null
+         */
         if (mRootView==null) {
             mRootView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
         }
@@ -78,10 +82,5 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         return mRootView;
     }
 
-    @Nullable
-    @Override
-    public Track getItem(int position) {
-        return mTrackList.get(position);
-    }
 
 }

@@ -1,13 +1,16 @@
 package com.example.csongor.musicalstructure.musichelpers;
 
+import android.content.ContentResolver;
 import android.content.Context;
-import android.media.MediaMetadataRetriever;
+import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 
-import com.example.csongor.musicalstructure.R;
+import com.example.csongor.musicalstructure.ErrorActivity;
+import com.example.csongor.musicalstructure.ErrorMessage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,9 @@ import java.util.List;
 
 class Mp3TrackListStrategy implements PlaylistCreationStrategy {
 
+    private static final String LOG_TAG = Mp3TrackListStrategy.class.getSimpleName();
+
+    private static final String EXTRA_ERROR = "EXTRA_ERROR";
     private Context mContext;
 
     Mp3TrackListStrategy(Context context) {
@@ -27,57 +33,48 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
 
     /**
      * @return new List<Track> containing mp3 files from Music directory and it's subfolders
+     * Idea to use ContentResolver is from Android Developers' Guide, StackOverflow and own experience
      */
     @Override
     public List<Track> getPlaylist() {
-        List<Track> trackList;
-        File musicDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
-        trackList = processFile(musicDirectory);
-        if (trackList.isEmpty()) {
-            trackList.add(new NullTrack());
-        }
-        return trackList;
-    }
+        Log.e(LOG_TAG,"getPlayList called");
+        List<Track> playlist = new ArrayList<>();
+        ContentResolver contentResolver = mContext.getContentResolver();
+        Uri uri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        if (cursor == null) {
 
-    // Parse mp3 files from directory recursively
-    private List<Track> processFile(File file) {
-        File[] fileList = file.listFiles();
-        List<Track> trackList = new ArrayList<>();
-        if (fileList.length == 0)
-            return trackList;
-        for (int i = 0; i < fileList.length; i++) {
-            File toProcess = fileList[i];
-            if (!toProcess.isDirectory()) {
-                String filename = toProcess.getName();
-                String extensionArray[] = filename.split("\\.");
-                if (extensionArray[extensionArray.length - 1].equalsIgnoreCase("mp3")) {
-                    // If the file is mp3, new Mp3Track is added to tracklist
-                    trackList.add(createMp3Track(toProcess));
-                }
-            } else {
-                // If the file is directory, it will parsed calling this method recursively
-                trackList.addAll(processFile(fileList[i]));
-            }
-        }
-        return trackList;
-    }
+            // query failed, handle error.
+            Intent intent = new Intent(mContext, ErrorActivity.class);
+            intent.putExtra(EXTRA_ERROR, ErrorMessage.MP3_FILE_QUERY_ERROR);
+            mContext.startActivity(intent);
+        } else if (!cursor.moveToFirst()) {
 
-    //Creating Mp3Track from file with checking values
-    private Track createMp3Track(File toProcess) {
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        retriever.setDataSource(toProcess.getPath());
-        String artist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-        if (artist == null || artist.equalsIgnoreCase(""))
-            artist = toProcess.getName().toString();
-        String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-        if (title == null || title.equalsIgnoreCase(""))
-            title = mContext.getString(R.string.mp3_title_unknown);
-        String genre = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
-        if (genre == null || genre.startsWith("(") || genre.equalsIgnoreCase("") || Character.isDigit(genre.charAt(0)))
-            genre = mContext.getString(R.string.mp3_title_unknown);
-        long length = Long.parseLong(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
-        Uri uri = Uri.parse(toProcess.getPath());
-        return new Mp3MusicTrack(new MusicTrack(artist, title, length, genre), uri);
+            // no media on the device, handle error
+            Intent intent = new Intent(mContext, ErrorActivity.class);
+            intent.putExtra(EXTRA_ERROR, ErrorMessage.NO_MEDIA);
+            mContext.startActivity(intent);
+        } else {
+
+
+            int titleColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
+            int idColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media._ID);
+            int durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
+            int artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
+            do {
+                //parsing results into Mp3 track, adding it into List
+                long thisId = cursor.getLong(idColumn);
+                String thisTitle = cursor.getString(titleColumn);
+                String thisArtist = cursor.getString(artistColumn);
+                long thisDuration = (long) cursor.getInt(durationColumn);
+                Track trackToAdd = new Mp3MusicTrack(new MusicTrack(thisArtist, thisTitle, thisDuration, ""), thisId);
+                playlist.add(trackToAdd);
+            } while (cursor.moveToNext());
+        }
+        // If there were no results, NullTrack is added instead throwing Exception
+        if (playlist.isEmpty()) playlist.add(new NullTrack());
+
+        return playlist;
     }
 
 }
