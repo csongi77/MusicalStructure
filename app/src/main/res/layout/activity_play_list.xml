@@ -18,6 +18,7 @@
     <LinearLayout
         android:id="@+id/list_message_container"
         style="@style/match_match">
+
         <ImageView
             android:id="@+id/loader_image"
             android:layout_width="match_parent"
@@ -26,13 +27,14 @@
             android:scaleY=".3"
             android:src="@drawable/anarchy"
             />
-    <ListView
-        android:drawSelectorOnTop="true"
-        android:id="@+id/list_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.csongor.musicalstructure.PlayListActivity">
-    </ListView>
+        <ListView
+            android:drawSelectorOnTop="true"
+            android:id="@+id/list_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.example.csongor.musicalstructure.PlayListActivity"
+            android:visibility="gone">
+        </ListView>
 
     </LinearLayout>
 </LinearLayout>

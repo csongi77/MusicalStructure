@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:src="@drawable/lights_party_dancing_music"
         android:scaleType="centerCrop"/>
+
 <LinearLayout
     android:id="@+id/button_panel"
     android:layout_width="match_parent"
@@ -26,10 +27,46 @@
         android:src="@drawable/ic_queue_music_white_48dp"
         />
     <ImageButton
+        android:id="@+id/btn_play_pause"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:src="@drawable/ic_pause_circle_outline_white_48dp"
         />
 
 </LinearLayout>
+    <LinearLayout
+        android:id="@+id/player_time_container"
+        android:layout_alignTop="@+id/button_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:translationY="-40dp">
+        <TextView
+            android:id="@+id/txt_time_elapsed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="@string/txt_player_time"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:padding="@dimen/welcome_text_padding"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/txt_time_remaining"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            tools:text="@string/txt_player_time"
+            android:textSize="24sp"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:padding="@dimen/welcome_text_padding"/>
+    </LinearLayout>
+    <SeekBar
+        android:layout_alignTop="@+id/player_time_container"
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:translationY="-55dp"
+        />
 </RelativeLayout>

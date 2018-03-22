@@ -109,6 +109,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
             sortPlayListBy(mListingOrder);
     }
 
+
     /**
      * Setting up menu options for sorting tracks
      *

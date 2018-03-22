@@ -45,8 +45,8 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Track mTrack = mTrackList.get(position);
         // Declaring local variables
-        String authorToDisplay = "";
-        String titleToDisplay = "";
+        String authorToDisplay;
+        String titleToDisplay;
         int maxStringLengthAuthor = 32;
         int maxStringLengthTitle = 22;
 
@@ -57,7 +57,6 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
          */
         if (mRootView==null) {
             mRootView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
-
         }
 
         /**
