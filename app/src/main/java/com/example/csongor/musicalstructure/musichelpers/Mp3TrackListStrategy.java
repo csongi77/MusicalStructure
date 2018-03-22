@@ -3,10 +3,12 @@ package com.example.csongor.musicalstructure.musichelpers;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+
 
 import com.example.csongor.musicalstructure.ErrorActivity;
 import com.example.csongor.musicalstructure.ErrorMessage;
@@ -37,6 +39,7 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
      */
     @Override
     public List<Track> getPlaylist() {
+
         Log.e(LOG_TAG,"getPlayList called");
         List<Track> playlist = new ArrayList<>();
         ContentResolver contentResolver = mContext.getContentResolver();
@@ -49,6 +52,7 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
             intent.putExtra(EXTRA_ERROR, ErrorMessage.MP3_FILE_QUERY_ERROR);
             mContext.startActivity(intent);
         } else if (!cursor.moveToFirst()) {
+
 
             // no media on the device, handle error
             Intent intent = new Intent(mContext, ErrorActivity.class);
@@ -74,7 +78,9 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
         // If there were no results, NullTrack is added instead throwing Exception
         if (playlist.isEmpty()) playlist.add(new NullTrack());
 
+
         return playlist;
+
     }
 
 }

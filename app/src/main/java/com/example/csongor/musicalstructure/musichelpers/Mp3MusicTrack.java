@@ -35,9 +35,11 @@ public class Mp3MusicTrack extends AbstractTrackWrapper implements Playable {
     public void play(Context context) {
 
 
+
     Intent intent = new Intent(context, PlayerActivity.class);
     intent.putExtra(EXTRA_ID, mId);
     context.startActivity(intent);
+
 
     }
 }
