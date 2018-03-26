@@ -50,4 +50,8 @@
     <string name="txt_player_time">99:99</string>
     <string name="txt_player_title">Song Title Goes Here</string>
 
+    <!-- Playlist Activity string resources -->
+    <string name="playlist_toolbar_title"> </string>
+    <string name="playlist_image_description">own work</string>
+
 </resources>
