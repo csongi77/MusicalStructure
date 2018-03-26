@@ -42,7 +42,12 @@
 
     <!-- Error Button -->
     <string name="btn_error_right">Got it</string>
+
     <string name="mp3_title_unknown">Unknown</string>
     <string name="menu_playlist">Playlist</string>
+
+    <!-- Player Activity string resources -->
     <string name="txt_player_time">99:99</string>
+    <string name="txt_player_title">Song Title Goes Here</string>
+
 </resources>

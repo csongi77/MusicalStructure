@@ -26,6 +26,7 @@
             android:scaleX=".3"
             android:scaleY=".3"
             android:src="@drawable/anarchy"
+            android:visibility="visible"
             />
         <ListView
             android:drawSelectorOnTop="true"

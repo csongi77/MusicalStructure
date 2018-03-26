@@ -10,13 +10,22 @@
         android:layout_height="match_parent"
         android:src="@drawable/lights_party_dancing_music"
         android:scaleType="centerCrop"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_player_title"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="26sp"
+        android:textColor="@color/white"
+        tools:text="@string/txt_player_title"/>
 
 <LinearLayout
     android:id="@+id/button_panel"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:layout_alignParentBottom="true"
-    android:background="@color/dark_grey"
+    android:background="@color/black"
     android:orientation="horizontal"
     android:gravity="center"
     android:padding="6dp">

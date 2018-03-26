@@ -15,6 +15,7 @@ public class Mp3MusicTrack extends AbstractTrackWrapper implements Playable {
 
     private long mId;
     private static final String EXTRA_ID="EXTRA_ID";
+    private static final String EXTRA_TITLE="EXTRA_TITLE";
 
     /**
      * @param track the wrapped Track which will have extended behaviours and/or properties
@@ -38,6 +39,7 @@ public class Mp3MusicTrack extends AbstractTrackWrapper implements Playable {
 
     Intent intent = new Intent(context, PlayerActivity.class);
     intent.putExtra(EXTRA_ID, mId);
+    intent.putExtra(EXTRA_TITLE,this.getTitle());
     context.startActivity(intent);
 
 
