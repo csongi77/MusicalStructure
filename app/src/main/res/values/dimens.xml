@@ -6,4 +6,15 @@
     <dimen name="o_dp">0dp</dimen>
 
     <!-- List Item dimens -->
+
+    <!-- Player Activity dimens -->
+    <dimen name="player_song_title_size">26sp</dimen>
+    <dimen name="player_button_panel_height">60dp</dimen>
+    <dimen name="player_button_panel_padding">6dp</dimen>
+    <dimen name="player_button_width">0dp</dimen>
+    <dimen name="player_button_height">52dp</dimen>
+    <dimen name="player_button_weight">.8</dimen>
+    <dimen name="player_time_weight">1</dimen>
+    <dimen name="player_time_text_size">24sp</dimen>
+    <dimen name="player_seekbar_translation_y">-20dp</dimen>
 </resources>
