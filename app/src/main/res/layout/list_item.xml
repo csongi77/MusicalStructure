@@ -2,75 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/orange"
-    >
+    style="@style/list_item_container">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical">
+    <!-- Linear Layout for Title and Track Title -->
+    <LinearLayout style="@style/list_item_artist_container">
 
+        <!-- Author TextWiew -->
         <TextView
             android:id="@+id/text_author"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:paddingLeft="12dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            style="@style/list_item_txt_artist"
             tools:text="@string/text_author" />
 
+        <!-- Track Title TextView -->
         <TextView
             android:id="@+id/text_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:paddingBottom="6dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="@string/text_title"
-            android:paddingLeft="18dp" />
+            style="@style/list_item_txt_title"
+            tools:text="@string/text_title" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.4"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical">
+    <!-- Linear Layout for Genre and Length -->
+    <LinearLayout style="@style/list_item_length_container">
 
+        <!-- Genre TextView -->
         <TextView
             android:id="@+id/text_genre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            style="@style/list_item_txt_genre"
             tools:text="@string/text_genre" />
 
+        <!-- Track Length TextView -->
         <TextView
             android:id="@+id/text_length"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="6dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
+            style="@style/list_item_txt_length"
             tools:text="@string/text_length" />
     </LinearLayout>
 
-
-
+    <!-- Play ImageView, image from material.io -->
     <ImageView
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/ic_play_circle_outline_white_36dp"
-        android:padding="6dp"
-        android:layout_marginEnd="6dp"
-        android:layout_gravity="center"/>
+        android:id="@+id/list_item_ic_play"
+        style="@style/list_item_ic_play"
+        android:src="@drawable/ic_play_circle_outline_white_36dp" />
 </LinearLayout>
