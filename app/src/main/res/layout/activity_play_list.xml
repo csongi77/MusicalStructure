@@ -6,8 +6,10 @@
 
     <!-- toolbar for showing Track ordering menu -->
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_list_options"
         style="@style/playlist_widget_toolbar"
-        android:id="@+id/toolbar_list_options"/>
+        app:popupTheme="@style/AlertDialog.AppCompat.Light"
+        app:title="@string/playlist_toolbar_title" />
 
     <LinearLayout
         android:id="@+id/list_message_container"

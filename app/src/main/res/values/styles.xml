@@ -197,8 +197,7 @@
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">?attr/colorPrimary</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
-        <item name="app:popupTheme">@style/AlertDialog.AppCompat.Light</item>
-        <item name="app:title">@string/playlist_toolbar_title</item>
+
     </style>
 
     <!--Playlist item styles *****************************************************************-->

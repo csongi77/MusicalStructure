@@ -1,5 +1,6 @@
 package com.example.csongor.musicalstructure.musichelpers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -34,7 +35,6 @@ public class Mp3MusicTrack extends AbstractTrackWrapper implements Playable {
      */
     @Override
     public void play(Context context) {
-
 
 
     Intent intent = new Intent(context, PlayerActivity.class);

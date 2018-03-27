@@ -1,6 +1,7 @@
 package com.example.csongor.musicalstructure;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -109,7 +110,6 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
             sortPlayListBy(mListingOrder);
     }
 
-
     /**
      * Setting up menu options for sorting tracks
      *
@@ -202,7 +202,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
 
             // If Adapter hasn't been already instantiated it will be done here.
             if (mAdapter == null) {
-                Log.e(LOG_TAG, "mAdapter==null");
+                Log.v(LOG_TAG, "mAdapter==null");
                 mAdapter = new PlaylistArrayAdapter(this, mPlayList);
                 mListView.setAdapter(mAdapter);
 
@@ -212,7 +212,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
                 });
                 mListView.setVisibility(View.VISIBLE);
             } else {
-                Log.e(LOG_TAG, "mAdapter not null");
+                Log.v(LOG_TAG, "mAdapter not null");
                 mListView.setVisibility(View.VISIBLE);
             }
         } else {
@@ -225,7 +225,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<List<Track>> loader) {
-        Log.e(LOG_TAG, "onLoaderReset called");
+        Log.v(LOG_TAG, "onLoaderReset called");
         mLoaderImage.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.GONE);
         mPlayList.clear();

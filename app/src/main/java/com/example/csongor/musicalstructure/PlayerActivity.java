@@ -45,6 +45,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     private Uri mContentUri;
     private int mCurrentPosition, mDuration;
 
+
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -131,9 +132,11 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             if (!mMediaPlayer.isPlaying()) {
                 mMediaPlayer.start();
                 isPlaying=true;
+                mPlayPauseBtn.setImageResource(R.drawable.ic_pause_circle_outline_white_48dp);
             } else {
                 mMediaPlayer.pause();
                 isPlaying=false;
+                mPlayPauseBtn.setImageResource(R.drawable.ic_play_circle_outline_white_48dp);
             }
         });
     }
@@ -279,6 +282,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         Log.d(LOG_TAG, "MediaPlayer onCompletion");
 
     }
+
 
     /**
      * Converting time from millis to mm:ss format
