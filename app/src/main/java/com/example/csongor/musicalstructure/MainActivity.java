@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 // show why we need permission
                 showReasonDialog();
-                super.onStart();
+                //super.onStart();
             } else {
                 // go and request permission
                 goRequestPermission();
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             openPlaylist(PlaylistStrategies.MP3_PLAYLIST_FROM_FILE);
         }
-        super.onStart();
+        //super.onStart();
     }
 
     /**

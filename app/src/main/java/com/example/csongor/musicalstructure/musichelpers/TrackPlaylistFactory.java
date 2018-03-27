@@ -1,6 +1,7 @@
 package com.example.csongor.musicalstructure.musichelpers;
 
 import android.content.Context;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 
 import java.util.List;
@@ -31,14 +32,13 @@ public class TrackPlaylistFactory extends AsyncTaskLoader<List<Track>> {
                 return;
             default:
                 mPlaylistStrategy = new Mp3TrackListStrategy(getContext());
-                return;
         }
     }
+
 
     /**
      * Overriding AsyncTaskLoader's methods
      */
-
     @Override
     protected void onStartLoading() {
         forceLoad();

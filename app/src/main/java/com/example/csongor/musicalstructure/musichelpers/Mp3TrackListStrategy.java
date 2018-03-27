@@ -46,21 +46,19 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
         Uri uri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         Cursor cursor = contentResolver.query(uri, null, null, null, null);
         if (cursor == null) {
-
+            Log.e(LOG_TAG,"cursor==null");
             // query failed, handle error.
             Intent intent = new Intent(mContext, ErrorActivity.class);
             intent.putExtra(EXTRA_ERROR, ErrorMessage.MP3_FILE_QUERY_ERROR);
             mContext.startActivity(intent);
         } else if (!cursor.moveToFirst()) {
-
-
+            Log.e(LOG_TAG,"no file found");
             // no media on the device, handle error
             Intent intent = new Intent(mContext, ErrorActivity.class);
             intent.putExtra(EXTRA_ERROR, ErrorMessage.NO_MEDIA);
             mContext.startActivity(intent);
         } else {
-
-
+            Log.d(LOG_TAG,"retrieving data from cursor");
             int titleColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
             int idColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media._ID);
             int durationColumn = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
@@ -77,8 +75,6 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
         }
         // If there were no results, NullTrack is added instead throwing Exception
         if (playlist.isEmpty()) playlist.add(new NullTrack());
-
-
         return playlist;
 
     }

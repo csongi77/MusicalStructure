@@ -27,6 +27,22 @@ import com.example.csongor.musicalstructure.musichelpers.Track;
  * This Activity has the responsibility for starting to load TrackList, displaying them and
  * put them into requested order (by Artist, Title, Genre, Length)
  */
+
+/**
+ * TRYING TO FIX BUG
+ * mLoader retrieves already deleted mp3s!!!!
+ * To reproduce bug:
+ * 1. copy some mp3s into /sdcard/Music directory
+ * 2. start app.
+ * 3. click on "use tracks from storage card
+ * 4. grant permission for using external storage
+ * 5. after playlist has been loaded select one and start play
+ * 6. stop play and return to Main Activity by pressing back button twice
+ * 7. exit app
+ * 8. remove previously copied mp3s.
+ * 9. restart app
+ * 10. after clicking "use track from storage card" the original playlist remains...
+ */
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class PlayListActivity extends AppCompatActivity implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Track>> {
 
@@ -85,6 +101,28 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
 
         // Setting up default listing order
         mListingOrder = ListingOrder.DEFAULT;
+    }
+
+    /**
+     * Release resources onStop -- TRYING TO FIX BUG
+     * mLoader retrieves already deleted mp3s!!!!
+     * To reproduce bug:
+     * 1. copy some mp3s into /sdcard/Music directory
+     * 2. start app.
+     * 3. click on "use tracks from storage card
+     * 4. grant permission for using external storage
+     * 5. after playlist has been loaded select one and start play
+     * 6. stop play and return to Main Activity by pressing back button twice
+     * 7. exit app
+     * 8. remove previously copied mp3s.
+     * 9. restart app
+     * 10. after clicking "use track from storage card" the original playlist remains...
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(LOG_TAG,"onStop called, destroyLoader runs");
+        getSupportLoaderManager().destroyLoader(LOADER_ID);
     }
 
     /**
@@ -229,6 +267,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
         mLoaderImage.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.GONE);
         mPlayList.clear();
+        mAdapter=null;
         mPlayList=null;
         mLoader=null;
     }
