@@ -2,7 +2,7 @@
 <ScrollView
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/match_match">
+    style="@style/style_activity_main_layout">
     <LinearLayout
         style="@style/style_activity_main_layout">
 

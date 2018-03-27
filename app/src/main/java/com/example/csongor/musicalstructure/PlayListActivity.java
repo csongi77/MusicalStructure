@@ -229,6 +229,8 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
         mLoaderImage.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.GONE);
         mPlayList.clear();
+        mPlayList=null;
+        mLoader=null;
     }
 
     /**

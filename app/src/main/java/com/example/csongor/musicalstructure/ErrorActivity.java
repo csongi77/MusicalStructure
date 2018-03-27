@@ -54,15 +54,4 @@ public class ErrorActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Overriding back buttons behaviour for avoiding infinite loops
-     * Example no files found in Playlist Activity -> ErrorActivity starts. On pressing Back
-     * button would try to open files again with last settings which caused no files found error. The
-     * procedure would open again ErrorActivity etc.
-     */
-    @Override
-    public void onBackPressed() {
-        Intent intent=new Intent(ErrorActivity.this,MainActivity.class);
-        startActivity(intent);
-    }
 }

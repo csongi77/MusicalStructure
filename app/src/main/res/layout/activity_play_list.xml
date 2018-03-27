@@ -25,6 +25,7 @@
         <ListView
             android:id="@+id/list_container"
             style="@style/playlist_list_container"
+            android:background="@color/black"
             tools:context="com.example.csongor.musicalstructure.PlayListActivity" />
 
     </LinearLayout>

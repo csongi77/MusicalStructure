@@ -26,14 +26,14 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
 
     // Declaring constants
     private static final String EXTRA_ID = "EXTRA_ID";
-    private static final String EXTRA_TITLE="EXTRA_TITLE";
+    private static final String EXTRA_TITLE = "EXTRA_TITLE";
     private static final String BUNDLE_CURRENT_POSITION = "BUNDLE_CURRENT_POSITION";
     private static final String BUNDLE_IS_PLAYING = "BUNDLE_IS_PLAYING";
     private static final String LOG_TAG = PlayerActivity.class.getSimpleName();
     private final Object mLock = new Object();
     // Declaring variables
     private SeekBar mSeekBar;
-    private TextView mTimeRemaining, mTimeElapsed;
+    private TextView mTimeRemaining, mTimeElapsed, mSongTitle;
     private ImageButton mPlayPauseBtn, mBackToPlaylistBtn;
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
@@ -44,6 +44,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     private long mId;
     private Uri mContentUri;
     private int mCurrentPosition, mDuration;
+    private Runnable mSeekBarUpdater;
 
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -58,13 +59,17 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         mTimeElapsed = findViewById(R.id.txt_time_elapsed);
         mPlayPauseBtn = findViewById(R.id.btn_play_pause);
         mBackToPlaylistBtn = findViewById(R.id.btn_to_playlist);
+        mSongTitle = findViewById(R.id.txt_player_title);
         mSeekBar = findViewById(R.id.seekbar);
-        mSeekBar.setOnSeekBarChangeListener(this);
+
 
         // Recieving TrackId
         Intent intent = getIntent();
         mId = intent.getLongExtra(EXTRA_ID, -1L);
         String mTitle = intent.getStringExtra(EXTRA_TITLE);
+
+        // Set up Track Title
+        mSongTitle.setText(mTitle);
 
         // Converting Uri from TrackId
         mContentUri = ContentUris.withAppendedId(
@@ -100,6 +105,33 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Assigning listener for SeekBar
+        mSeekBar.setOnSeekBarChangeListener(this);
+
+        // Assigning listeners for Pause/Play button
+        mPlayPauseBtn.setOnClickListener(v -> {
+            if (!mMediaPlayer.isPlaying()) {
+                mMediaPlayer.start();
+                isPlaying = true;
+                mPlayPauseBtn.setImageResource(R.drawable.ic_pause_circle_outline_white_48dp);
+            } else {
+                mMediaPlayer.pause();
+                isPlaying = false;
+                mPlayPauseBtn.setImageResource(R.drawable.ic_play_circle_outline_white_48dp);
+            }
+        });
+
+        // Assigning listener for Playlist button
+        mBackToPlaylistBtn.setOnClickListener(v -> PlayerActivity.this.onBackPressed());
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(LOG_TAG, "OnStart called");
         int result = mAudioManager.requestAudioFocus(mFocusRequest);
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             Log.d(LOG_TAG, "MediaPlayer request granted");
@@ -107,56 +139,65 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             // Start playing and set
             mMediaPlayer.start();
             isPlaying = true;
-            // Set up mSeekBar Handler & Update mSeekBar in a different Thread
-            mHandler = new Handler();
-
-            PlayerActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d(LOG_TAG, "run");
-                    if (mMediaPlayer != null) {
-                        if (mMediaPlayer.isPlaying()) {
-                            mCurrentPosition = mMediaPlayer.getCurrentPosition();
-                            Log.d(LOG_TAG, "run-->mMediaPlayer.isPlaying==true");
-                            mSeekBar.setProgress(mCurrentPosition);
+            /**
+             * Preparing Handler object and a Runnable in order to
+             * update SeekBar status
+             */
+            if (mHandler == null) {
+                mHandler = new Handler();
+            }
+            if (mSeekBarUpdater == null) {
+                mSeekBarUpdater = new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(LOG_TAG, "run");
+                        if (mMediaPlayer != null && mHandler != null) {
+                            if (mMediaPlayer.isPlaying()) {
+                                mCurrentPosition = mMediaPlayer.getCurrentPosition();
+                                Log.d(LOG_TAG, "run-->mMediaPlayer.isPlaying==true");
+                                mSeekBar.setProgress(mCurrentPosition);
+                            }
+                            mHandler.postDelayed(this, 1000);
                         }
-                        mHandler.postDelayed(this, 1000);
                     }
-                }
-            });
+                };
+            }
+            PlayerActivity.this.runOnUiThread(mSeekBarUpdater);
         }
 
-
-        // Assigning listeners for buttons
-        mPlayPauseBtn.setOnClickListener(v -> {
-            if (!mMediaPlayer.isPlaying()) {
-                mMediaPlayer.start();
-                isPlaying=true;
-                mPlayPauseBtn.setImageResource(R.drawable.ic_pause_circle_outline_white_48dp);
-            } else {
-                mMediaPlayer.pause();
-                isPlaying=false;
-                mPlayPauseBtn.setImageResource(R.drawable.ic_play_circle_outline_white_48dp);
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(LOG_TAG, "OnStart called");
     }
 
     /**
-     * When Activity becomes invisible, stop mMediaPlayer
-     * and clear up AudioManager
+     * Dispatch onPause() to fragments.
      */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMediaPlayer.pause();
+    }
+
+    // free up some UI dependent resources
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onStop() {
         super.onStop();
         Log.d(LOG_TAG, "onStop called");
-        synchronized (mLock) {
+        /**
+         * Clearing up RunOnUiThread by setting mHandler to null
+         * in order to free up resources
+         */
+        mHandler = null;
+    }
+
+    /**
+     * When Activity is destroyed, stop mMediaPlayer
+     * and clear up AudioManager
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAG, "onDestroy called");
             mMediaPlayer.stop();
             Log.d(LOG_TAG, "mMediaPlayer.stop called");
             mMediaPlayer.reset();
@@ -165,13 +206,12 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             Log.d(LOG_TAG, "mMediaPlayer.release called");
             mAudioManager.abandonAudioFocusRequest(mFocusRequest);
             Log.d(LOG_TAG, "abadonAudioFocusRequest called");
-        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // Pause if music is being played & put into Bundle the state
-        if (mMediaPlayer.isPlaying()) {
+        if (isPlaying) {
             outState.putBoolean(BUNDLE_IS_PLAYING, true);
         } else {
             outState.putBoolean(BUNDLE_IS_PLAYING, false);
@@ -214,8 +254,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         mSeekBar.setProgress(mCurrentPosition);
         mMediaPlayer.pause();
         if (isPlaying) mMediaPlayer.start();
-
-
     }
 
     /**
@@ -225,7 +263,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         // mCurrentPosition=progress;
         mTimeElapsed.setText(millisToMinutes(progress));
-        mTimeRemaining.setText(millisToMinutes(mDuration -progress));
+        mTimeRemaining.setText(millisToMinutes(mDuration - progress));
         if (fromUser) {
             mMediaPlayer.pause();
             Log.d(LOG_TAG, "paused");
@@ -234,7 +272,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
+        //required for SeekBar implementation
     }
 
     @Override
@@ -242,7 +280,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         int progress = seekBar.getProgress();
         mMediaPlayer.seekTo(progress);
         /**
-         * If mPlayer Seek completed, check that was it playing music:
+         * If mPlayer Seek completed, check whether it playing music:
          * if it was paused state, don't start playing.
          */
         if (isPlaying)

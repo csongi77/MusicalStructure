@@ -23,7 +23,7 @@
         <ImageButton
             android:id="@+id/btn_to_playlist"
             style="@style/player_button"
-            android:src="@drawable/ic_queue_music_white_48dp" />
+            android:src="@drawable/ic_queue_music_white_48dp"/>
 
         <ImageButton
             android:id="@+id/btn_play_pause"

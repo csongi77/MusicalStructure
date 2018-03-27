@@ -27,8 +27,9 @@
 
     <!-- activity_main screen styles *******************************************-->
     <!-- layout style -->
-    <style name="style_activity_main_layout" parent="match_wrap">
+    <style name="style_activity_main_layout" parent="match_match">
         <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/black</item>
     </style>
 
     <!-- layout card-container style -->
@@ -182,11 +183,13 @@
         <item name="android:scaleX">@dimen/playlist_loader_image_scale_xy</item>
         <item name="android:scaleY">@dimen/playlist_loader_image_scale_xy</item>
         <item name="android:src">@drawable/anarchy</item>
+        <item name="android:background">@color/black</item>
         <item name="android:visibility">visible</item>
     </style>
 
     <!--List container -->
     <style name="playlist_list_container" parent="match_match">
+        <item name="android:background">@color/black</item>
         <item name="android:drawSelectorOnTop">true</item>
         <item name="android:visibility">gone</item>
     </style>
@@ -195,9 +198,8 @@
     <style name="playlist_widget_toolbar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:background">@color/black</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
-
     </style>
 
     <!--Playlist item styles *****************************************************************-->
