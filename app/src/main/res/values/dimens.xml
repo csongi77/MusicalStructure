@@ -5,5 +5,32 @@
     <dimen name="welcome_text_padding">8dp</dimen>
     <dimen name="o_dp">0dp</dimen>
 
+    <!-- Playlist Activity dimens -->
+    <dimen name="playlist_toolbar_elevation">4dp</dimen>
+    <dimen name="playlist_loader_image_scale_xy">.3</dimen>
+
     <!-- List Item dimens -->
+    <dimen name="list_item_artist_layout_weight">1</dimen>
+    <dimen name="list_item_length_layout_weight">.4</dimen>
+    <dimen name="list_item_txt_author_padding_left">12dp</dimen>
+    <dimen name="list_item_txt_padding_top">6dp</dimen>
+    <dimen name="list_item_txt_padding_bottom">6dp</dimen>
+    <dimen name="list_item_txt_title_text_size">18sp</dimen>
+    <dimen name="list_item_txt_title_padding_left">18dp</dimen>
+    <dimen name="list_item_txt_length_text_size">18sp</dimen>
+
+    <!-- Player Activity dimens -->
+    <dimen name="player_song_title_size">26sp</dimen>
+    <dimen name="player_button_panel_height">60dp</dimen>
+    <dimen name="player_button_panel_padding">6dp</dimen>
+    <dimen name="player_button_width">0dp</dimen>
+    <dimen name="player_button_height">52dp</dimen>
+    <dimen name="player_button_weight">.8</dimen>
+    <dimen name="player_time_weight">1</dimen>
+    <dimen name="player_time_text_size">24sp</dimen>
+    <dimen name="player_seekbar_translation_y">-20dp</dimen>
+    <dimen name="list_item_ic_play_wh">36dp</dimen>
+    <dimen name="list_item_ic_play_margin_right">6dp</dimen>
+
+
 </resources>

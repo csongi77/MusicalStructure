@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- root styles -->
+    <!-- root styles ************************************************************-->
 
     <style name="match_match">
         <item name="android:layout_width">match_parent</item>
@@ -25,10 +25,11 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <!-- activity_main screen styles -->
+    <!-- activity_main screen styles *******************************************-->
     <!-- layout style -->
-    <style name="style_activity_main_layout" parent="match_wrap">
+    <style name="style_activity_main_layout" parent="match_match">
         <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/black</item>
     </style>
 
     <!-- layout card-container style -->
@@ -74,7 +75,7 @@
     </style>
 
 
-    <!-- activity error styles -->
+    <!-- activity error styles ***********************************************************-->
     <!-- error title style -->
     <style name="error_title" parent="Base.TextAppearance.AppCompat.Headline">
         <item name="android:layout_width">match_parent</item>
@@ -96,8 +97,8 @@
     <style name="btn_error" parent="style_activity_main_text">
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-
     </style>
+
     <!-- button container -->
     <style name="btn_error_container">
         <item name="android:layout_width">match_parent</item>
@@ -107,6 +108,161 @@
         <item name="android:gravity">right</item>
         <item name="android:paddingRight">@dimen/welcome_text_padding</item>
         <item name="android:paddingTop">@dimen/welcome_text_padding</item>
+    </style>
+
+
+    <!--Player Activity styles **************************************************************-->
+    <!-- Player Activity background image style -->
+    <style name="player_background" parent="match_match">
+        <!-- image from CC0 -> https://www.pexels.com/photo/lights-party-dancing-music-2143/  -->
+        <item name="android:src">@drawable/lights_party_dancing_music</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <!-- Player Activity Song Title style -->
+    <style name="player_song_title" parent="match_wrap">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/welcome_text_padding</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/player_song_title_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Player Button Panel style -->
+    <style name="player_button_panel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/player_button_panel_height</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">@dimen/player_button_panel_padding</item>
+    </style>
+
+    <!--Player Button style -->
+    <style name="player_button">
+        <item name="android:layout_width">@dimen/player_button_width</item>
+        <item name="android:layout_height">@dimen/player_button_height</item>
+        <item name="android:layout_weight">@dimen/player_button_weight</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <!--Player Timer Text style root-->
+    <style name="player_timer_root">
+        <item name="android:layout_width">@dimen/o_dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">@dimen/player_time_weight</item>
+        <item name="android:padding">@dimen/welcome_text_padding</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/player_time_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Player Time Elapsed Text style root-->
+    <style name="player_timer_left" parent="player_timer_root">
+        <item name="android:gravity">left</item>
+    </style>
+
+    <!--Player Time Remaining Text style root-->
+    <style name="player_timer_right" parent="player_timer_root">
+        <item name="android:gravity">right</item>
+    </style>
+
+    <!--Player SeekBar style -->
+    <style name="player_seekbar" parent="match_wrap">
+        <item name="android:translationY">@dimen/player_seekbar_translation_y</item>
+    </style>
+
+    <!--Playlist Activity styles *********************************************************-->
+    <!-- Loader Image style -->
+    <style name="playlist_loader_image" parent="match_match">
+        <item name="android:contentDescription">@string/playlist_image_description</item>
+        <item name="android:scaleX">@dimen/playlist_loader_image_scale_xy</item>
+        <item name="android:scaleY">@dimen/playlist_loader_image_scale_xy</item>
+        <item name="android:src">@drawable/anarchy</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <!--List container -->
+    <style name="playlist_list_container" parent="match_match">
+        <item name="android:background">@color/black</item>
+        <item name="android:drawSelectorOnTop">true</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <!-- Menu Toolbar style -->
+    <style name="playlist_widget_toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+    </style>
+
+    <!--Playlist item styles *****************************************************************-->
+    <!-- List Item style -->
+    <style name="list_item_container" parent="match_wrap">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/orange</item>
+    </style>
+
+    <!-- List Item Title & Artist; Genre & Length root container -->
+    <style name="list_item_inner_layout_root">
+        <item name="android:layout_width">@dimen/o_dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <!-- List Item Title & Artist container -->
+    <style name="list_item_artist_container" parent="list_item_inner_layout_root">
+        <item name="android:layout_weight">@dimen/list_item_artist_layout_weight</item>
+    </style>
+
+    <!-- List Item Length & Genre container -->
+    <style name="list_item_length_container" parent="list_item_inner_layout_root">
+        <item name="android:layout_weight">@dimen/list_item_length_layout_weight</item>
+    </style>
+
+    <!-- List Item TextViews root style -->
+    <style name="list_item_text_root" parent="match_wrap">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingBottom">@dimen/list_item_txt_padding_bottom</item>
+    </style>
+
+    <!-- List item Genre style -->
+    <style name="list_item_txt_genre" parent="list_item_text_root">
+        <item name="android:paddingTop">@dimen/list_item_txt_padding_top</item>
+    </style>
+
+    <!-- List Item Author style -->
+    <style name="list_item_txt_artist" parent="list_item_txt_genre">
+        <item name="android:paddingLeft">@dimen/list_item_txt_author_padding_left</item>
+    </style>
+
+    <!-- List Item Title style -->
+    <style name="list_item_txt_title" parent="list_item_text_root">
+        <item name="android:textSize">@dimen/list_item_txt_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">@dimen/list_item_txt_title_padding_left</item>
+    </style>
+
+    <!-- List Item Track Length style -->
+    <style name="list_item_txt_length" parent="list_item_text_root">
+        <item name="android:textSize">@dimen/list_item_txt_length_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- List Item Play image style -->
+    <style name="list_item_ic_play">
+        <item name="android:layout_width">@dimen/list_item_ic_play_wh</item>
+        <item name="android:layout_height">@dimen/list_item_ic_play_wh</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginRight">@dimen/list_item_ic_play_margin_right</item>
+        <item name="android:padding">@dimen/list_item_ic_play_margin_right</item>
     </style>
 
 </resources>

@@ -28,6 +28,7 @@
     <string name="txt_error_title_no_media">No media mounted</string>
     <string name="txt_error_title_no_permission_granted">Read storage permission denied</string>
     <string name="txt_error_title_no_files_found">No files found</string>
+    <string name="txt_error_title_query_failed">Unexpected error</string>
 
     <!-- Error Description -->
     <string name="txt_error_description">Error text description</string>
@@ -37,8 +38,20 @@
         the application needs your permission for reading access to your files</string>
     <string name="txt_error_description_no_files_found">Your Music folder is empty.
         Copy some mp3 files into it in order to play them!</string>
+    <string name="txt_error_description_query_failed">Unexpected Mp3 parsing error occured, call the developer :(</string>
 
     <!-- Error Button -->
     <string name="btn_error_right">Got it</string>
+
     <string name="mp3_title_unknown">Unknown</string>
+    <string name="menu_playlist">Playlist</string>
+
+    <!-- Player Activity string resources -->
+    <string name="txt_player_time">99:99</string>
+    <string name="txt_player_title">Song Title Goes Here</string>
+
+    <!-- Playlist Activity string resources -->
+    <string name="playlist_toolbar_title"> </string>
+    <string name="playlist_image_description">own work</string>
+
 </resources>

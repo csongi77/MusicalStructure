@@ -6,7 +6,6 @@ package com.example.csongor.musicalstructure.musichelpers;
  * On creating TrackPlaylistFactory client has to chose one of these
  * to determine how playlist will be created
  */
-
 public enum PlaylistStrategies {
     DUMMY_PLAYLIST,
     MP3_PLAYLIST_FROM_FILE

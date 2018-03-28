@@ -8,10 +8,9 @@ import java.util.List;
 /**
  * Created by csongor on 3/5/18.
  * Helper class for generating Track list object asynchronously using Strategy and Factory patterns.
- * Since MusicTrack cannot be instantiated outside this package this class has the
- * only responsibility to create appropriate Track Lists.
+ * Since {@link MusicTrack} cannot be instantiated outside this package TrackPlaylistFactory class has the
+ * only responsibility to create appropriate {@link Track} Lists.
  */
-
 public class TrackPlaylistFactory extends AsyncTaskLoader<List<Track>> {
 
     // The PlaylistCreationStrategy encapsulates the methods creating the appropriate TrackList
@@ -31,25 +30,25 @@ public class TrackPlaylistFactory extends AsyncTaskLoader<List<Track>> {
                 return;
             default:
                 mPlaylistStrategy = new Mp3TrackListStrategy(getContext());
-                return;
         }
     }
 
     /**
      * Overriding AsyncTaskLoader's methods
      */
-
     @Override
     protected void onStartLoading() {
         forceLoad();
     }
 
-    // Loading data based on Strategy
+    /**
+     * Loading data based on Strategy
+     * @return a List of a {@link Track}
+     */
     @Override
     public List<Track> loadInBackground() {
         return mPlaylistStrategy.getPlaylist();
     }
-
 }
 
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/match_match"
+    tools:context="com.example.csongor.musicalstructure.PlayerActivity">
+
+    <ImageView style="@style/player_background" />
+
+    <TextView
+        android:id="@+id/txt_player_title"
+        tools:text="@string/txt_player_title"
+        style="@style/player_song_title"/>
+
+    <LinearLayout
+        android:id="@+id/button_panel"
+        style="@style/player_button_panel">
+
+        <TextView
+            android:id="@+id/txt_time_elapsed"
+            style="@style/player_timer_left"
+            tools:text="@string/txt_player_time" />
+
+        <ImageButton
+            android:id="@+id/btn_to_playlist"
+            style="@style/player_button"
+            android:src="@drawable/ic_queue_music_white_48dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_play_pause"
+            style="@style/player_button"
+            android:src="@drawable/ic_pause_circle_outline_white_48dp" />
+
+        <TextView
+            android:id="@+id/txt_time_remaining"
+            style="@style/player_timer_right"
+            tools:text="@string/txt_player_time" />
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        style="@style/player_seekbar"
+        android:layout_alignTop="@+id/button_panel" />
+</RelativeLayout>

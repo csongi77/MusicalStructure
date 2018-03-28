@@ -7,7 +7,6 @@ package com.example.csongor.musicalstructure.musichelpers;
  * Since all of Media files has these properties, implementing
  * this interface can be also suitable for other media, example VideoMusicClips, etc.
  */
-
 public interface Track {
     String getAuthor();
     String getTitle();

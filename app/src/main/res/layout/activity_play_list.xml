@@ -4,34 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/style_activity_main_layout">
 
+    <!-- toolbar for showing Track ordering menu -->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_list_options"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:title=" "
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/AlertDialog.AppCompat.Light">
+        style="@style/playlist_widget_toolbar"
+        app:popupTheme="@style/AlertDialog.AppCompat.Light"
+        app:title="@string/playlist_toolbar_title" />
 
-    </android.support.v7.widget.Toolbar>
     <LinearLayout
         android:id="@+id/list_message_container"
         style="@style/match_match">
+
+        <!-- own image -->
+        <!-- this container is shown while Tracks being loaded -->
         <ImageView
             android:id="@+id/loader_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleX=".3"
-            android:scaleY=".3"
-            android:src="@drawable/anarchy"
-            />
-    <ListView
-        android:id="@+id/list_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.csongor.musicalstructure.PlayListActivity">
-    </ListView>
+            style="@style/playlist_loader_image" />
+
+        <!-- List item container -->
+        <ListView
+            android:id="@+id/list_container"
+            style="@style/playlist_list_container"
+            android:background="@color/black"
+            tools:context="com.example.csongor.musicalstructure.PlayListActivity" />
 
     </LinearLayout>
 </LinearLayout>
