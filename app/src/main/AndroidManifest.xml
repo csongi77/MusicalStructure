@@ -22,16 +22,19 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:label="@string/label_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlayListActivity" />
-        <activity android:name=".ErrorActivity" />
-        <activity android:name=".PlayerActivity"></activity>
+        <activity android:name=".PlayListActivity"
+            android:label="@string/label_playlist_activity"/>
+        <activity android:name=".ErrorActivity"
+            android:label="@string/label_error_activity"/>
+        <activity android:name=".PlayerActivity"
+            android:label="@string/label_player_activity"/>
     </application>
 
 </manifest>
