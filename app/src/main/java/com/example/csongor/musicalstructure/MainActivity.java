@@ -21,23 +21,20 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 42;
     // declare variables
     private AlertDialog mAlertDialog;
-    private LinearLayout mDummyButton;
-    private LinearLayout mMp3Button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Assigning values to variables
-        mDummyButton = findViewById(R.id.btn_dummy_track);
-        mMp3Button = findViewById(R.id.btn_mp3_track);
+        LinearLayout mDummyButton = findViewById(R.id.btn_dummy_track);
+        LinearLayout mMp3Button = findViewById(R.id.btn_mp3_track);
 
         // Assigning listeners to buttons
-        mDummyButton.setOnClickListener(v->openPlaylist(PlaylistStrategies.DUMMY_PLAYLIST));
-        mMp3Button.setOnClickListener(v->performCheck());
-
+        mDummyButton.setOnClickListener(v -> openPlaylist(PlaylistStrategies.DUMMY_PLAYLIST));
+        // When user clicks on Mp3 track, app will perform a check of availability of Strorage and Permissions
+        mMp3Button.setOnClickListener(v -> performCheck());
     }
-
 
     /**
      * Got request persmission result for PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
@@ -53,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
             // permission denied, open Error Activity
             openErrorActivity(ErrorMessage.NO_PERMISSION);
         }
-
     }
 
     /**
@@ -61,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void performCheck() {
         // Check whether external storage is available. If not, open Error Activity
-        if (!Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED)&&
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)!=null) {
+        if (!Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED) &&
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC) != null) {
             openErrorActivity(ErrorMessage.NO_MEDIA);
         }
         // check permissions for accessing external storage. If not, request permission
@@ -70,15 +66,14 @@ public class MainActivity extends AppCompatActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 // show why we need permission
                 showReasonDialog();
-                //super.onStart();
             } else {
                 // go and request permission
                 goRequestPermission();
             }
         } else {
+            // everything is fine, go on with opening playlist
             openPlaylist(PlaylistStrategies.MP3_PLAYLIST_FROM_FILE);
         }
-        //super.onStart();
     }
 
     /**
@@ -89,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * show why we need permission for reading storage
+     * show why we need permission for reading storage in an AlertDialog Box
      */
     private void showReasonDialog() {
         AlertDialog.Builder mAlertDialogBuilder = new AlertDialog.Builder(this);

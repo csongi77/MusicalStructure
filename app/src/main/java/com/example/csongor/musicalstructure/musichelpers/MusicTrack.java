@@ -6,7 +6,6 @@ package com.example.csongor.musicalstructure.musichelpers;
  * which later can be persistable, structure must be immutable.
  * Striving on open-closed principle further behaviours or properties can be added via wrapper classes.
  */
-
 public final class MusicTrack implements Track {
     // Field declarations. Since these fields are immutable they are final fields
     private final String mAuthor;
@@ -18,10 +17,11 @@ public final class MusicTrack implements Track {
     /**
      * Constructor for MusicTrack. Since instantiating is allowed by Factories of the package,
      * the constructor remains package private
+     *
      * @param Author author of track
-     * @param Title title of track
+     * @param Title  title of track
      * @param Length length of track in millis
-     * @param Genre genre of track
+     * @param Genre  genre of track
      */
     MusicTrack(String Author, String Title, long Length, String Genre) {
         this.mAuthor = Author;
@@ -30,24 +30,34 @@ public final class MusicTrack implements Track {
         this.mGenre = Genre;
     }
 
+    // Getters, also these are implementations of Track interface
     /**
-     * Getters, also these are implementations of Track interface
+     * @return Track's Author/Artist
      */
     @Override
     public String getAuthor() {
         return mAuthor;
     }
 
+    /**
+     * @return Title of the Track
+     */
     @Override
     public String getTitle() {
         return mTitle;
     }
 
+    /**
+     * @return length/duration of Track in millis
+     */
     @Override
     public long getLength() {
         return mLength;
     }
 
+    /**
+     * @return the Genre of the Track
+     */
     @Override
     public String getGenre() {
         return mGenre;
@@ -62,27 +72,27 @@ public final class MusicTrack implements Track {
      */
     @Override
     public int hashCode() {
-        int result=mHashCode;
-        if(result==0){
-            result=17;
-            result=31*result+mAuthor.hashCode();
-            result=31*result+mTitle.hashCode();
-            result=31*result+mGenre.hashCode();
-            result=31*result+((int)(mLength^(mLength>>>32)));
-            mHashCode=result;
+        int result = mHashCode;
+        if (result == 0) {
+            result = 17;
+            result = 31 * result + mAuthor.hashCode();
+            result = 31 * result + mTitle.hashCode();
+            result = 31 * result + mGenre.hashCode();
+            result = 31 * result + ((int) (mLength ^ (mLength >>> 32)));
+            mHashCode = result;
         }
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj==this) return true;
+        if (obj == this) return true;
         if (!(obj instanceof MusicTrack)) return false;
-        MusicTrack mTrack=(MusicTrack)obj;
-        return mTrack.mLength==this.mLength &&
-                mTrack.mGenre == this.mGenre &&
-                mTrack.mTitle == this.mTitle &&
-                mTrack.mAuthor == this.mTitle;
+        MusicTrack mTrack = (MusicTrack) obj;
+        return mTrack.mLength == this.mLength &&
+                mTrack.mGenre.equalsIgnoreCase(this.mGenre) &&
+                mTrack.mTitle.equalsIgnoreCase(this.mTitle) &&
+                mTrack.mAuthor.equalsIgnoreCase(this.mTitle);
     }
 
     /**
@@ -91,6 +101,6 @@ public final class MusicTrack implements Track {
      */
     @Override
     public String toString() {
-        return "MusicTrack-> author:"+ mAuthor +", title:"+mTitle;
+        return "MusicTrack-> author:" + mAuthor + ", title:" + mTitle;
     }
 }

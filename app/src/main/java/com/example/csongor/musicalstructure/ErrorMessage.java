@@ -4,7 +4,6 @@ package com.example.csongor.musicalstructure;
  * Created by csongor on 3/7/18.
  * This enum holds possible errors.
  */
-
 public enum ErrorMessage {
     // If external storage is unavailable of not readable:
     NO_MEDIA,

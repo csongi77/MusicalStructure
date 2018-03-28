@@ -1,6 +1,5 @@
 package com.example.csongor.musicalstructure;
 
-import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -10,11 +9,10 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -22,32 +20,35 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
+/**
+ * This Activity is the UI for playing {@link com.example.csongor.musicalstructure.musichelpers.Mp3MusicTrack}
+ * retrieved from storage
+ */
+public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener,
+        MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
 
     // Declaring constants
     private static final String EXTRA_ID = "EXTRA_ID";
     private static final String EXTRA_TITLE = "EXTRA_TITLE";
+    private static final String EXTRA_ERROR = "EXTRA_ERROR";
     private static final String BUNDLE_CURRENT_POSITION = "BUNDLE_CURRENT_POSITION";
     private static final String BUNDLE_IS_PLAYING = "BUNDLE_IS_PLAYING";
     private static final String LOG_TAG = PlayerActivity.class.getSimpleName();
     // Declaring variables
     private SeekBar mSeekBar;
-    private TextView mTimeRemaining, mTimeElapsed, mSongTitle;
-    private ImageButton mPlayPauseBtn, mBackToPlaylistBtn;
+    private TextView mTimeRemaining;
+    private TextView mTimeElapsed;
+    private ImageButton mPlayPauseBtn;
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
     private boolean isPlaying;
     private Handler mHandler;
     private AudioAttributes mAudioAttributes;
     private AudioFocusRequest mFocusRequest;
-    private long mId;
-    private Uri mContentUri;
     private int mCurrentPosition, mDuration;
     private Runnable mSeekBarUpdater;
 
 
-    @TargetApi(Build.VERSION_CODES.O)
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,40 +58,52 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         mTimeRemaining = findViewById(R.id.txt_time_remaining);
         mTimeElapsed = findViewById(R.id.txt_time_elapsed);
         mPlayPauseBtn = findViewById(R.id.btn_play_pause);
-        mBackToPlaylistBtn = findViewById(R.id.btn_to_playlist);
-        mSongTitle = findViewById(R.id.txt_player_title);
+        ImageButton mBackToPlaylistBtn = findViewById(R.id.btn_to_playlist);
+        TextView mSongTitle = findViewById(R.id.txt_player_title);
         mSeekBar = findViewById(R.id.seekbar);
 
-
-        // Recieving TrackId
+        // Receiving TrackId and Title from intent
         Intent intent = getIntent();
-        mId = intent.getLongExtra(EXTRA_ID, -1L);
+        long mId = intent.getLongExtra(EXTRA_ID, -1L);
         String mTitle = intent.getStringExtra(EXTRA_TITLE);
 
         // Set up Track Title
         mSongTitle.setText(mTitle);
 
         // Converting Uri from TrackId
-        mContentUri = ContentUris.withAppendedId(
+        Uri mContentUri = ContentUris.withAppendedId(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, mId);
 
         // Set up AudioManager, AudioManager Attributes, FocusRequest & MediaPlayer
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mAudioAttributes = new AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .setUsage(AudioAttributes.USAGE_MEDIA)
-                .build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mAudioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .setUsage(AudioAttributes.USAGE_MEDIA)
+                    .build();
+        }
 
-        mFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
-                .setOnAudioFocusChangeListener(this)
-                .setAudioAttributes(mAudioAttributes)
-                .setWillPauseWhenDucked(true)
-                .build();
+        // Building AudioFocusRequest properties
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+                    .setOnAudioFocusChangeListener(this)
+                    .setAudioAttributes(mAudioAttributes)
+                    .setWillPauseWhenDucked(true)
+                    .build();
+        }
+
+        // Creating new MediaPlayer if it not exists yet
         if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
         }
+
+        // Resetting and preparing MediaPlayer for playing mp3
         mMediaPlayer.reset();
-        mMediaPlayer.setAudioAttributes(mAudioAttributes);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mMediaPlayer.setAudioAttributes(mAudioAttributes);
+        } else {
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        }
 
         try {
             mMediaPlayer.setDataSource(this, mContentUri);
@@ -102,6 +115,10 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             mSeekBar.setMax(mDuration);
             Log.d(LOG_TAG, "MediaPlayer prepared");
         } catch (IOException e) {
+            Log.e(LOG_TAG,"Something went wrong opening mp3");
+            Intent intentError=new Intent(PlayerActivity.this,ErrorActivity.class);
+            intentError.putExtra(EXTRA_ERROR,ErrorMessage.MP3_FILE_QUERY_ERROR);
+            startActivity(intentError);
             e.printStackTrace();
         }
 
@@ -126,16 +143,21 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onStart() {
         super.onStart();
         Log.d(LOG_TAG, "OnStart called");
-        int result = mAudioManager.requestAudioFocus(mFocusRequest);
+        // Requesting AudioFocus depending on Android version
+        int result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            result = mAudioManager.requestAudioFocus(mFocusRequest);
+        } else {
+            result = mAudioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        }
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             Log.d(LOG_TAG, "MediaPlayer request granted");
             mMediaPlayer.setOnCompletionListener(this);
-            // Start playing and set
+            // Start playing and set isPlaying to true. This attribute is required on rotating screen
             mMediaPlayer.start();
             isPlaying = true;
             /**
@@ -152,10 +174,12 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
                         Log.d(LOG_TAG, "run");
                         if (mMediaPlayer != null && mHandler != null) {
                             if (mMediaPlayer.isPlaying()) {
+                                // Refreshing SeekBar position
                                 mCurrentPosition = mMediaPlayer.getCurrentPosition();
                                 Log.d(LOG_TAG, "run-->mMediaPlayer.isPlaying==true");
                                 mSeekBar.setProgress(mCurrentPosition);
                             }
+                            // Refreshing
                             mHandler.postDelayed(this, 1000);
                         }
                     }
@@ -163,7 +187,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             }
             PlayerActivity.this.runOnUiThread(mSeekBarUpdater);
         }
-
     }
 
     /**
@@ -176,7 +199,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     }
 
     // free up some UI dependent resources
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onStop() {
         super.onStop();
@@ -192,7 +214,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
      * When Activity is destroyed, stop mMediaPlayer
      * and clear up AudioManager
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -203,7 +224,12 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         mMediaPlayer.release();
         mMediaPlayer = null;
         Log.d(LOG_TAG, "mMediaPlayer.release called");
-        mAudioManager.abandonAudioFocusRequest(mFocusRequest);
+        // Abandon AudioFocus depending on Android version
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mAudioManager.abandonAudioFocusRequest(mFocusRequest);
+        } else {
+            mAudioManager.abandonAudioFocus(this);
+        }
         Log.d(LOG_TAG, "abadonAudioFocusRequest called");
     }
 
@@ -215,7 +241,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         } else {
             outState.putBoolean(BUNDLE_IS_PLAYING, false);
         }
-        mMediaPlayer.pause();
         // update & save current position
         mCurrentPosition = mMediaPlayer.getCurrentPosition();
         outState.putInt(BUNDLE_CURRENT_POSITION, mCurrentPosition);
@@ -251,24 +276,24 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         isPlaying = savedInstanceState.getBoolean(BUNDLE_IS_PLAYING);
         mMediaPlayer.seekTo(mCurrentPosition);
         mSeekBar.setProgress(mCurrentPosition);
-        mMediaPlayer.pause();
-        if (isPlaying) {
-            mMediaPlayer.start();
-        } else {
+        if (!isPlaying) {
             /**
              * If the player was paused and the orientation has been changed, on restoreInstanceState
              * the icon must be set properly
              */
+            mMediaPlayer.pause();
             mPlayPauseBtn.setImageResource(R.drawable.ic_play_circle_outline_white_48dp);
         }
     }
 
+    // Seekbar Callback methods start
+
     /**
-     * Seekbar Callback methods start
+     * In this callback we visually update the SeekBar progress and
+     * time status (booth elapsed and remaining)
      */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        // mCurrentPosition=progress;
         mTimeElapsed.setText(millisToMinutes(progress));
         mTimeRemaining.setText(millisToMinutes(mDuration - progress));
         if (fromUser) {
@@ -279,7 +304,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        //required for SeekBar implementation
+        //required for SeekBar implementation, in this case it does nothing
     }
 
     @Override
@@ -294,11 +319,10 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             mMediaPlayer.start();
         Log.d(LOG_TAG, "playing");
     }
-    // SeeBar Callback methods end
+    // SeekBar Callback methods end
 
 
     // AudioFocusChange Callback
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onAudioFocusChange(int focusChange) {
         switch (focusChange) {
@@ -320,12 +344,11 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         }
     }
 
-    // MediaPlayer Callback when finished
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    // MediaPlayer Callback when finished, returning to playlist
     @Override
     public void onCompletion(MediaPlayer mp) {
         Log.d(LOG_TAG, "MediaPlayer onCompletion");
-
+        onBackPressed();
     }
 
 
@@ -335,7 +358,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
      * @param millis time unit in milliseconds
      * @return String time in mm:ss format
      */
-
     private String millisToMinutes(int millis) {
         StringBuilder toReturn = new StringBuilder()
                 .append(millis / (1000 * 60))

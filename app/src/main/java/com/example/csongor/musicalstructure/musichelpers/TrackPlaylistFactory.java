@@ -1,7 +1,6 @@
 package com.example.csongor.musicalstructure.musichelpers;
 
 import android.content.Context;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 
 import java.util.List;
@@ -9,10 +8,9 @@ import java.util.List;
 /**
  * Created by csongor on 3/5/18.
  * Helper class for generating Track list object asynchronously using Strategy and Factory patterns.
- * Since MusicTrack cannot be instantiated outside this package this class has the
- * only responsibility to create appropriate Track Lists.
+ * Since {@link MusicTrack} cannot be instantiated outside this package TrackPlaylistFactory class has the
+ * only responsibility to create appropriate {@link Track} Lists.
  */
-
 public class TrackPlaylistFactory extends AsyncTaskLoader<List<Track>> {
 
     // The PlaylistCreationStrategy encapsulates the methods creating the appropriate TrackList
@@ -35,7 +33,6 @@ public class TrackPlaylistFactory extends AsyncTaskLoader<List<Track>> {
         }
     }
 
-
     /**
      * Overriding AsyncTaskLoader's methods
      */
@@ -44,12 +41,14 @@ public class TrackPlaylistFactory extends AsyncTaskLoader<List<Track>> {
         forceLoad();
     }
 
-    // Loading data based on Strategy
+    /**
+     * Loading data based on Strategy
+     * @return a List of a {@link Track}
+     */
     @Override
     public List<Track> loadInBackground() {
         return mPlaylistStrategy.getPlaylist();
     }
-
 }
 
 

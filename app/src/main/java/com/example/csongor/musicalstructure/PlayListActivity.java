@@ -1,7 +1,6 @@
 package com.example.csongor.musicalstructure;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -15,33 +14,17 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.util.List;
-
 import com.example.csongor.musicalstructure.musichelpers.NullTrack;
-import com.example.csongor.musicalstructure.musichelpers.PlaylistStrategies;
-import com.example.csongor.musicalstructure.musichelpers.TrackPlaylistFactory;
 import com.example.csongor.musicalstructure.musichelpers.Playable;
+import com.example.csongor.musicalstructure.musichelpers.PlaylistStrategies;
 import com.example.csongor.musicalstructure.musichelpers.Track;
+import com.example.csongor.musicalstructure.musichelpers.TrackPlaylistFactory;
+
+import java.util.List;
 
 /**
  * This Activity has the responsibility for starting to load TrackList, displaying them and
  * put them into requested order (by Artist, Title, Genre, Length)
- */
-
-/**
- * TRYING TO FIX BUG
- * mLoader retrieves already deleted mp3s!!!!
- * To reproduce bug:
- * 1. copy some mp3s into /sdcard/Music directory
- * 2. start app.
- * 3. click on "use tracks from storage card
- * 4. grant permission for using external storage
- * 5. after playlist has been loaded select one and start play
- * 6. stop play and return to Main Activity by pressing back button twice
- * 7. exit app
- * 8. remove previously copied mp3s.
- * 9. restart app
- * 10. after clicking "use track from storage card" the original playlist remains...
  */
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class PlayListActivity extends AppCompatActivity implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Track>> {
@@ -109,19 +92,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
     }
 
     /**
-     * Release resources onStop -- TRYING TO FIX BUG
-     * mLoader retrieves already deleted mp3s!!!!
-     * To reproduce bug:
-     * 1. copy some mp3s into /sdcard/Music directory
-     * 2. start app.
-     * 3. click on "use tracks from storage card
-     * 4. grant permission for using external storage
-     * 5. after playlist has been loaded select one and start play
-     * 6. stop play and return to Main Activity by pressing back button twice
-     * 7. exit app
-     * 8. remove previously copied mp3s.
-     * 9. restart app
-     * 10. after clicking "use track from storage card" the original playlist remains...
+     * Release resources onStop event
      */
     @Override
     protected void onStop() {
@@ -214,7 +185,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
      */
     @Override
     public android.support.v4.content.Loader<List<Track>> onCreateLoader(int id, Bundle args) {
-        Log.e(LOG_TAG, "onCReateLoader called");
+        Log.d(LOG_TAG, "onCReateLoader called");
         android.support.v4.content.Loader mLoaderToReturn = mLoader;
         if (mLoader == null) {
             mLoaderToReturn = new TrackPlaylistFactory(PlayListActivity.this, mStrategy);
@@ -233,7 +204,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<List<Track>> loader, List<Track> data) {
         // Assigning retrieved data to mPlayList variable
-        Log.e(LOG_TAG, "onLoadFinished called");
+        Log.d(LOG_TAG, "onLoadFinished called");
         if (mPlayList == null)
             mPlayList = data;
 
@@ -245,7 +216,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
 
             // If Adapter hasn't been already instantiated it will be done here.
             if (mAdapter == null) {
-                Log.v(LOG_TAG, "mAdapter==null");
+                Log.d(LOG_TAG, "mAdapter==null");
                 mAdapter = new PlaylistArrayAdapter(this, mPlayList);
                 mListView.setAdapter(mAdapter);
 
@@ -255,7 +226,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
                 });
                 mListView.setVisibility(View.VISIBLE);
             } else {
-                Log.v(LOG_TAG, "mAdapter not null");
+                Log.d(LOG_TAG, "mAdapter not null");
                 mListView.setVisibility(View.VISIBLE);
             }
         } else {
@@ -268,7 +239,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<List<Track>> loader) {
-        Log.v(LOG_TAG, "onLoaderReset called");
+        Log.d(LOG_TAG, "onLoaderReset called");
         mLoaderImage.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.GONE);
         mPlayList.clear();
@@ -278,7 +249,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
     }
 
     /**
-     * @param listingOrder method for sorting Playlist
+     * @param listingOrder - this is the helper method for sorting Playlist
      */
     private void sortPlayListBy(ListingOrder listingOrder) {
         // Setting up mListingOrder for savingInstanceState call
@@ -297,6 +268,4 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
                 mPlayList.sort((t1, t2) -> t1.getGenre().compareToIgnoreCase(t2.getGenre()));
         }
     }
-
-
 }

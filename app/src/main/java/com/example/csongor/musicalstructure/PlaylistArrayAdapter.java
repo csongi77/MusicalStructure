@@ -1,13 +1,10 @@
 package com.example.csongor.musicalstructure;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -47,22 +44,36 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         // Declaring local variables
         String authorToDisplay;
         String titleToDisplay;
-        int maxStringLengthAuthor = 32;
-        int maxStringLengthTitle = 22;
+        // Defining max character number for different orientations
+        int maxStringLengthAuthorPortrait = 28;
+        int maxStringLengthTitlePortrait = 19;
+        int maxStringLengthAuthorLandscape = 45;
+        int maxStringLengthTitleLandscape = 40;
 
         View mRootView = convertView;
-
         /**
          * Inflating view if it's null
          */
-        if (mRootView==null) {
-            mRootView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
+        if (mRootView == null) {
+            mRootView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
 
         /**
-         *  find and set text for appropriate Track fields
-         *  If the lentgh of Strings are too long, they will be cut
+         * Get configuration info to determine how many characters can be displayed depending on orientation
+         * If orientation==Portrait, maxStringLengthAuthorPortrait and maxStringLengthTitlePortrait will be used
+         * In other case Landscape valuest will be used
          */
+        Configuration config = mContext.getResources().getConfiguration();
+        int maxStringLengthAuthor = config.orientation == config.ORIENTATION_PORTRAIT ?
+                maxStringLengthAuthorPortrait : maxStringLengthAuthorLandscape;
+        int maxStringLengthTitle = config.orientation == config.ORIENTATION_PORTRAIT ?
+                maxStringLengthTitlePortrait : maxStringLengthTitleLandscape;
+        /**
+         *  Find and set text for appropriate Track fields
+         *  If the lentgh of Strings are too long, they will be cut
+         *  It also depends on Orientation
+         */
+        // TextView Artist
         TextView mArtistTv = mRootView.findViewById(R.id.text_author);
         if (mTrack.getAuthor().trim().length() > maxStringLengthAuthor) {
             authorToDisplay = new StringBuilder(mTrack.getAuthor().substring(0, maxStringLengthAuthor))
@@ -73,16 +84,18 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         }
         mArtistTv.setText(authorToDisplay);
 
+        // TextView Title
         TextView mTitleTv = mRootView.findViewById(R.id.text_title);
         if (mTrack.getTitle().trim().length() > maxStringLengthTitle) {
             titleToDisplay = new StringBuilder(mTrack.getTitle().substring(0, maxStringLengthTitle))
                     .append("...")
                     .toString();
         } else {
-            titleToDisplay= mTrack.getTitle();
+            titleToDisplay = mTrack.getTitle();
         }
         mTitleTv.setText(titleToDisplay);
 
+        // TextView Genre
         TextView mGenre = mRootView.findViewById(R.id.text_genre);
         mGenre.setText(mTrack.getGenre());
 
@@ -94,17 +107,16 @@ public class PlaylistArrayAdapter extends ArrayAdapter<Track> {
         StringBuilder mLengthToDisplay = new StringBuilder("").
                 append(mTrackLength / 60000).
                 append(": ");
-        if (mTrackLength%60000/1000<10) mLengthToDisplay.append(0);
-                mLengthToDisplay.append(mTrackLength % 60000 / 1000).
+        if (mTrackLength % 60000 / 1000 < 10) mLengthToDisplay.append(0);
+        mLengthToDisplay.append(mTrackLength % 60000 / 1000).
                 append(".").
-                append(mTrackLength % 1000);
+                append(mTrackLength % 100);
 
+        // TextView Length
         TextView mLength = mRootView.findViewById(R.id.text_length);
         mLength.setText(mLengthToDisplay.toString());
 
         // return the rendered view
         return mRootView;
     }
-
-
 }

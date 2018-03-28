@@ -5,8 +5,9 @@ import java.util.List;
 
 /**
  * Created by csongor on 3/12/18.
- * This class is responsible for creating dummy Track List
- * Implementation of PlaylistCreationStrategy
+ * This class is responsible for creating dummy Track List.
+ * Implementation of {@link PlaylistCreationStrategy} for making easier call from
+ * {@link TrackPlaylistFactory}
  */
 
 class DummyTrackListStrategy implements PlaylistCreationStrategy {
@@ -26,7 +27,8 @@ class DummyTrackListStrategy implements PlaylistCreationStrategy {
     public List<Track> getPlaylist() {
 
         /**
-         * Building dummy Track list. The MusicTrack structure is wrapped in DummyMusicTrack
+         * Building dummy Track list. The {@link MusicTrack} structure is
+         * wrapped in {@link DummyMusicTrack}
          */
         List<Track> mTrackList = new ArrayList<>();
 
