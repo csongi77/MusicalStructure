@@ -53,6 +53,7 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
             mContext.startActivity(intent);
         } else if (!cursor.moveToFirst()) {
             Log.e(LOG_TAG,"no file found");
+            cursor.close();
             // no media on the device, handle error
             Intent intent = new Intent(mContext, ErrorActivity.class);
             intent.putExtra(EXTRA_ERROR, ErrorMessage.NO_MEDIA);
@@ -72,7 +73,9 @@ class Mp3TrackListStrategy implements PlaylistCreationStrategy {
                 Track trackToAdd = new Mp3MusicTrack(new MusicTrack(thisArtist, thisTitle, thisDuration, ""), thisId);
                 playlist.add(trackToAdd);
             } while (cursor.moveToNext());
+            cursor.close();
         }
+
         // If there were no results, NullTrack is added instead throwing Exception
         if (playlist.isEmpty()) playlist.add(new NullTrack());
         return playlist;

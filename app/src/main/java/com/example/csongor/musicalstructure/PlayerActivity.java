@@ -30,7 +30,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     private static final String BUNDLE_CURRENT_POSITION = "BUNDLE_CURRENT_POSITION";
     private static final String BUNDLE_IS_PLAYING = "BUNDLE_IS_PLAYING";
     private static final String LOG_TAG = PlayerActivity.class.getSimpleName();
-    private final Object mLock = new Object();
     // Declaring variables
     private SeekBar mSeekBar;
     private TextView mTimeRemaining, mTimeElapsed, mSongTitle;
@@ -198,14 +197,14 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     protected void onDestroy() {
         super.onDestroy();
         Log.d(LOG_TAG, "onDestroy called");
-            mMediaPlayer.stop();
-            Log.d(LOG_TAG, "mMediaPlayer.stop called");
-            mMediaPlayer.reset();
-            mMediaPlayer.release();
-            mMediaPlayer = null;
-            Log.d(LOG_TAG, "mMediaPlayer.release called");
-            mAudioManager.abandonAudioFocusRequest(mFocusRequest);
-            Log.d(LOG_TAG, "abadonAudioFocusRequest called");
+        mMediaPlayer.stop();
+        Log.d(LOG_TAG, "mMediaPlayer.stop called");
+        mMediaPlayer.reset();
+        mMediaPlayer.release();
+        mMediaPlayer = null;
+        Log.d(LOG_TAG, "mMediaPlayer.release called");
+        mAudioManager.abandonAudioFocusRequest(mFocusRequest);
+        Log.d(LOG_TAG, "abadonAudioFocusRequest called");
     }
 
     @Override
@@ -253,7 +252,15 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         mMediaPlayer.seekTo(mCurrentPosition);
         mSeekBar.setProgress(mCurrentPosition);
         mMediaPlayer.pause();
-        if (isPlaying) mMediaPlayer.start();
+        if (isPlaying) {
+            mMediaPlayer.start();
+        } else {
+            /**
+             * If the player was paused and the orientation has been changed, on restoreInstanceState
+             * the icon must be set properly
+             */
+            mPlayPauseBtn.setImageResource(R.drawable.ic_play_circle_outline_white_48dp);
+        }
     }
 
     /**

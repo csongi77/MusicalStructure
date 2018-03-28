@@ -92,11 +92,16 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
         rotate.setDuration(2000);
         rotate.setRepeatCount(Animation.INFINITE);
         mLoaderImage.startAnimation(rotate);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(LOG_TAG,"onStart called");
         /**
          * Creating Loader in order to retrieve TrackList
          */
-        Log.e(LOG_TAG, "getLoaderManager executed");
+        Log.d(LOG_TAG, "getLoaderManager executed");
         mLoader = getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
         // Setting up default listing order
