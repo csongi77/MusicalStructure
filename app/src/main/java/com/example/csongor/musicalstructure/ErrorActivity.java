@@ -27,7 +27,11 @@ public class ErrorActivity extends AppCompatActivity {
         TextView mButtonOk = findViewById(R.id.btn_error_right);
 
         // Setting up clickListener for mButtonOk. Pressing it, client will go back in MainActivity
-        mButtonOk.setOnClickListener((View v) -> onBackPressed());
+        /** On Reviewer requirement: it uses explicit Intent*/
+        mButtonOk.setOnClickListener((View v) -> {
+            Intent intent = new Intent(ErrorActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
 
         // Getting error reason from Intent
         Intent intent = getIntent();

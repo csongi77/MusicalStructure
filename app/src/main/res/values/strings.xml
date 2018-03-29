@@ -54,8 +54,8 @@
     <string name="playlist_toolbar_title"> </string>
     <string name="playlist_image_description">own work</string>
     <string name="label_activity_main">Tracklist Picker</string>
-    <string name="label_playlist_activity">Playlist</string>
+    <string name="label_playlist_activity">Track Selection</string>
     <string name="label_error_activity">Error</string>
-    <string name="label_player_activity">Track Player</string>
+    <string name="label_player_activity">Now Playing</string>
 
 </resources>

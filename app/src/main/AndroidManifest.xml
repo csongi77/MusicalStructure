@@ -21,7 +21,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
+<!-- add label for every Activity as Reviewer required -->
         <activity android:name=".MainActivity"
             android:label="@string/label_activity_main">
             <intent-filter>
