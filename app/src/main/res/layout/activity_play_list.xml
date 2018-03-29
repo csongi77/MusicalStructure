@@ -39,6 +39,6 @@
         style="@style/playlist_back_button"
         app:backgroundTint="@color/dark_grey"
         app:fabSize="normal"
-        app:elevation="@dimen/playlist_fab_elevation"
-        />
+        app:elevation="@dimen/playlist_fab_elevation" />
+
 </RelativeLayout>
