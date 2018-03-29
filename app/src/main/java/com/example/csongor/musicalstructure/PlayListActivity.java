@@ -1,6 +1,7 @@
 package com.example.csongor.musicalstructure;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -58,9 +60,22 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
         mLoaderImage = findViewById(R.id.loader_image);
         mListView = findViewById(R.id.list_container);
 
-        // Getting playlist creation strategy via Intent
+        // Setting up Intent to Main Activity -- requested by Reviewer in first review
+        ImageButton mBackToMainMenu = findViewById(R.id.fab_back);
+        mBackToMainMenu.setOnClickListener(v->{
+            Intent backToMainIntent=new Intent(PlayListActivity.this,MainActivity.class);
+            startActivity(backToMainIntent);});
+
+        /** Getting Intent
+         *  There are two possible entry points:
+         *  1) From MainActivity - in this case mStrategy is used for getting loader in order to
+         *  retrieve MusicTracks.
+         *  2) From PlayerActivity - then new Loader is not needed, therefore previous values can
+         *  be used
+         */
         Intent intent = getIntent();
         mStrategy = (PlaylistStrategies) intent.getSerializableExtra(EXTRA_PLAYLIST_CREATION_STRATEGY);
+
 
         /**
          * Just for fun, creating an animated loader :)
@@ -98,7 +113,7 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
     protected void onStop() {
         super.onStop();
         Log.d(LOG_TAG,"onStop called, destroyLoader runs");
-        getSupportLoaderManager().destroyLoader(LOADER_ID);
+       // getSupportLoaderManager().destroyLoader(LOADER_ID);
     }
 
     /**
@@ -188,6 +203,8 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
         Log.d(LOG_TAG, "onCReateLoader called");
         android.support.v4.content.Loader mLoaderToReturn = mLoader;
         if (mLoader == null) {
+            // if mStrategy from intent is Null, then use Dummy Playlist
+            if(mStrategy==null) mStrategy=PlaylistStrategies.DUMMY_PLAYLIST;
             mLoaderToReturn = new TrackPlaylistFactory(PlayListActivity.this, mStrategy);
         }
         return mLoaderToReturn;
@@ -242,10 +259,10 @@ public class PlayListActivity extends AppCompatActivity implements android.suppo
         Log.d(LOG_TAG, "onLoaderReset called");
         mLoaderImage.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.GONE);
-        mPlayList.clear();
-        mAdapter=null;
-        mPlayList=null;
-        mLoader=null;
+        //mPlayList.clear();
+        //mAdapter=null;
+        //mPlayList=null;
+        //mLoader=null;
     }
 
     /**

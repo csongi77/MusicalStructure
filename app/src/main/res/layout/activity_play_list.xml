@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/style_activity_main_layout">
@@ -9,7 +9,10 @@
         android:id="@+id/toolbar_list_options"
         style="@style/playlist_widget_toolbar"
         app:popupTheme="@style/AlertDialog.AppCompat.Light"
-        app:title="@string/playlist_toolbar_title" />
+        app:title="@string/playlist_toolbar_title"
+        >
+
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/list_message_container"
@@ -29,4 +32,13 @@
             tools:context="com.example.csongor.musicalstructure.PlayListActivity" />
 
     </LinearLayout>
-</LinearLayout>
+
+    <!-- playlist back button - required by reviewer at first review -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_back"
+        style="@style/playlist_back_button"
+        app:fabSize="normal"
+        app:backgroundTint="@color/dark_grey"
+
+        />
+</RelativeLayout>

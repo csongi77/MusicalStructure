@@ -18,6 +18,8 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.csongor.musicalstructure.musichelpers.PlaylistStrategies;
+
 import java.io.IOException;
 
 /**
@@ -31,6 +33,8 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     private static final String EXTRA_ID = "EXTRA_ID";
     private static final String EXTRA_TITLE = "EXTRA_TITLE";
     private static final String EXTRA_ERROR = "EXTRA_ERROR";
+    private static final String EXTRA_PLAYLIST_ORDER = "EXTRA_PLAYLIST_ORDER";
+    private static final String EXTRA_PLAYLIST_CREATION_STRATEGY = "EXTRA_PLAYLIST_CREATION_STRATEGY";
     private static final String BUNDLE_CURRENT_POSITION = "BUNDLE_CURRENT_POSITION";
     private static final String BUNDLE_IS_PLAYING = "BUNDLE_IS_PLAYING";
     private static final String LOG_TAG = PlayerActivity.class.getSimpleName();
@@ -139,7 +143,12 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         });
 
         // Assigning listener for Playlist button
-        mBackToPlaylistBtn.setOnClickListener(v -> PlayerActivity.this.onBackPressed());
+        // It uses explicit intent as Reviewer needed
+        mBackToPlaylistBtn.setOnClickListener(v -> {
+            Intent toPlaylist = new Intent(PlayerActivity.this, PlayListActivity.class);
+            toPlaylist.putExtra(EXTRA_PLAYLIST_CREATION_STRATEGY, PlaylistStrategies.MP3_PLAYLIST_FROM_FILE);
+            startActivity(toPlaylist);
+        });
     }
 
 

@@ -53,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Because Error Activities starts intent to Main Activity on pressing back button
+     * would cause infinite loop (ErrorActivity -> MainActivity -> ErrorActivity etc.)
+     * Therefore onBackPressed must be overriden to exit the app.
+     */
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    /**
      * Checking storage availability and persmissions for reading Music directory
      */
     private void performCheck() {

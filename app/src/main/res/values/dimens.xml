@@ -8,6 +8,7 @@
     <!-- Playlist Activity dimens -->
     <dimen name="playlist_toolbar_elevation">4dp</dimen>
     <dimen name="playlist_loader_image_scale_xy">.3</dimen>
+    <dimen name="playlist_fab_translation">-30dp</dimen>
 
     <!-- List Item dimens -->
     <dimen name="list_item_artist_layout_weight">1</dimen>

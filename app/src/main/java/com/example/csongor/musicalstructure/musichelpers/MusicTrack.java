@@ -18,16 +18,16 @@ public final class MusicTrack implements Track {
      * Constructor for MusicTrack. Since instantiating is allowed by Factories of the package,
      * the constructor remains package private
      *
-     * @param Author author of track
-     * @param Title  title of track
-     * @param Length length of track in millis
-     * @param Genre  genre of track
+     * @param author author of track
+     * @param title  title of track
+     * @param length length of track in millis
+     * @param genre  genre of track
      */
-    MusicTrack(String Author, String Title, long Length, String Genre) {
-        this.mAuthor = Author;
-        this.mTitle = Title;
-        this.mLength = Length;
-        this.mGenre = Genre;
+    MusicTrack(String author, String title, long length, String genre) {
+        this.mAuthor = author;
+        this.mTitle = title;
+        this.mLength = length;
+        this.mGenre = genre;
     }
 
     // Getters, also these are implementations of Track interface
