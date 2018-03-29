@@ -9,6 +9,7 @@
     <dimen name="playlist_toolbar_elevation">4dp</dimen>
     <dimen name="playlist_loader_image_scale_xy">.3</dimen>
     <dimen name="playlist_fab_translation">-30dp</dimen>
+    <dimen name="playlist_fab_elevation">10dp</dimen>
 
     <!-- List Item dimens -->
     <dimen name="list_item_artist_layout_weight">1</dimen>
@@ -32,6 +33,5 @@
     <dimen name="player_seekbar_translation_y">-20dp</dimen>
     <dimen name="list_item_ic_play_wh">36dp</dimen>
     <dimen name="list_item_ic_play_margin_right">6dp</dimen>
-
 
 </resources>

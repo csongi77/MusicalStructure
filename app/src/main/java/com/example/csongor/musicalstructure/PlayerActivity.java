@@ -151,7 +151,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         });
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
