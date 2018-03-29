@@ -4,41 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/style_activity_main_layout">
 
-    <!-- toolbar for showing Track ordering menu -->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_list_options"
-        style="@style/playlist_widget_toolbar"
-        app:popupTheme="@style/AlertDialog.AppCompat.Light"
-        app:title="@string/playlist_toolbar_title"
-        >
-
-    </android.support.v7.widget.Toolbar>
-
     <LinearLayout
-        android:id="@+id/list_message_container"
-        style="@style/match_match">
+        style="@style/match_match"
+        android:orientation="vertical">
+        <!-- toolbar for showing Track ordering menu -->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_list_options"
+            style="@style/playlist_widget_toolbar"
+            app:popupTheme="@style/AlertDialog.AppCompat.Light"
+            app:title="@string/playlist_toolbar_title"/>
 
-        <!-- own image -->
-        <!-- this container is shown while Tracks being loaded -->
-        <ImageView
-            android:id="@+id/loader_image"
-            style="@style/playlist_loader_image" />
+        <LinearLayout
+            android:id="@+id/list_message_container"
+            style="@style/match_wrap">
 
-        <!-- List item container -->
-        <ListView
-            android:id="@+id/list_container"
-            style="@style/playlist_list_container"
-            android:background="@color/black"
-            tools:context="com.example.csongor.musicalstructure.PlayListActivity" />
+            <!-- own image -->
+            <!-- this container is shown while Tracks being loaded -->
+            <ImageView
+                android:id="@+id/loader_image"
+                style="@style/playlist_loader_image" />
 
+            <!-- List item container -->
+            <ListView
+                android:id="@+id/list_container"
+                style="@style/playlist_list_container"
+                android:background="@color/black"
+                tools:context="com.example.csongor.musicalstructure.PlayListActivity" />
+
+        </LinearLayout>
     </LinearLayout>
-
     <!-- playlist back button - required by reviewer at first review -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_back"
         style="@style/playlist_back_button"
-        app:fabSize="normal"
         app:backgroundTint="@color/dark_grey"
-
+        app:fabSize="normal"
+        app:elevation="@dimen/playlist_fab_elevation"
         />
 </RelativeLayout>
